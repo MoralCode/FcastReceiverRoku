@@ -6,8 +6,8 @@ sub init()
 	m.top.setFocus(true)
 end sub
 
-sub onStreamUrlChanged()
-	url = m.fcastTask.streamUrl
+sub onCastContentChanged()
+	url = m.castContent.url
 	if url <> "" and url <> invalid
 		print "MainScene: Launching video -> "; url
 
