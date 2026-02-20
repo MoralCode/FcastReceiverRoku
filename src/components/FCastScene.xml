@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component name="FCastScene" extends="Scene">
-
+	<script type="text/brightscript" uri="pkg:/source/utils/NetworkUtils.brs" />
 	<script type="text/brightscript" uri="pkg:/components/FCastScene.brs" />
 
 	<children>
@@ -69,8 +69,8 @@
 				horizAlign="center"
 				font="font:MediumBoldSystemFont" />
 
-			<Label text="10.0.0.211" translation="[100, 480]" font="font:SmallSystemFont" />
-			<Label text="wlp170s0" translation="[280, 480]" font="font:SmallSystemFont" />
+			<Label id="ipAddress" translation="[100, 480]" font="font:SmallSystemFont" />
+			<Label id="networkInterface" translation="[280, 480]" font="font:SmallSystemFont" />
 
 			<Label text="Port" translation="[0, 510]" width="450" horizAlign="center"
 				color="0xAAAAAAFF" />
