@@ -12,6 +12,41 @@ function ByteArrayToHex(bytes as object) as string
 	return hexString
 end function
 
+function DecodeFCastPacket(bytes as object) as object
+	if bytes = invalid or bytes.count() < 5 then return invalid
+
+	' 1. Extract Length (First 4 bytes, Little Endian)
+	' Index 0 is the lowest value, Index 3 is the highest value
+	' Formula: byte0 + (byte1 << 8) + (byte2 << 16) + (byte3 << 24)
+	headerLength = 5
+
+	packetLength = bytes[0] + (bytes[1] * 256) + (bytes[2] * 65536) + (bytes[3] * 16777216)
+	' opcode is the 5th byte
+	opcode = bytes[4]
+
+	print "Detected Packet Length: "; packetLength
+	' 2. Validation
+	actualDataSize = bytes.count() - headerLength
+	if actualDataSize < packetLength
+		print "ERROR: Incomplete packet. Need "; packetLength ; " but got "; actualDataSize
+		return invalid
+	end if
+
+	' 3. Extract JSON Payload
+	payloadBytes = CreateObject("roByteArray")
+	' Using the built-in slice-like method for efficiency if available,
+	' otherwise a loop works perfectly:
+	for i = headerLength to (headerLength + packetLength - 1)
+		payloadBytes.push(bytes[i])
+	end for
+	print ByteArrayToHex(payloadBytes)
+	jsonString = payloadBytes.ToAsciiString()
+	
+
+	' 4. Parse JSON
+	return ParseJson(jsonString)
+end function
+
 sub listenToTcp()
 	' Create the TCP socket
 	tcp = CreateObject("roStreamSocket")
@@ -74,6 +109,7 @@ sub listenToTcp()
 					receivedByteCount = newConn.receive(buffer, 0, 512)
 					if receivedByteCount > 0
 						print ByteArrayToHex(buffer)
+						print DecodeFCastPacket(buffer)
 						' TODO: handle data here
 					else if receivedByteCount = 0 ' client closed
 						closed = True
