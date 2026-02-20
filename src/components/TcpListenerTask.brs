@@ -103,9 +103,11 @@ sub listenToTcp()
 				if newConn <> invalid and socketID = newConn.getID()
 					receivedByteCount = newConn.receive(buffer, 0, 512)
 					if receivedByteCount > 0
-						print ByteArrayToHex(buffer)
-						print DecodeFCastPacket(buffer)
-						' TODO: handle data here
+						' print ByteArrayToHex(buffer)
+						fcastPacket = DecodeFCastPacket(buffer)
+						if fcastPacket <> invalid then
+							handleFcastOpcode(fcastPacket.opcode,fcastPacket.data)
+						end if
 					else if receivedByteCount = 0 ' client closed
 						closed = True
 					end if
@@ -120,4 +122,13 @@ sub listenToTcp()
 			print "other event received"
 		end if
 	end while
+end sub
+
+sub handleFcastOpcode(opcode as integer, payload as Object)
+	' Handle the specific FCast Operation (op)
+	' 1 = Play, 2 = Pause, 3 = Resume, 4 = Stop, 5 = Seek
+	if opcode = 1
+		print "Play request for: "; payload.url
+	end if
+
 end sub
