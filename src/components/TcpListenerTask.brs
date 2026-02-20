@@ -39,7 +39,7 @@ function DecodeFCastPacket(bytes as object) as object
 		data = ParseJson(asciislice)
 	end if
 
-	return { opcode: opcode, data: data }
+	return { opcode: opcode, payload: data }
 end function
 
 sub listenToTcp()

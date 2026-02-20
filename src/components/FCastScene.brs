@@ -27,7 +27,7 @@ sub init()
 
 	print "TCP Task Thread Started..."
 
-	m.tcpTask.observeField("castContent", "onNewStreamReceived")
+	m.tcpTask.observeField("payload", "onPayloadReceived")
 
 	' Pre-create the player but keep it hidden
 	m.player = CreateObject("roSGNode", "VideoPlayerScene")
@@ -37,17 +37,27 @@ sub init()
 	m.top.setFocus(true)
 end sub
 
-sub onNewStreamReceived()
-	data = m.tcpTask.castContent
-	if data <> invalid
-		m.player.visible = true
-		m.player.playContent(data)
+sub onPayloadReceived()
+	opcodedata = m.tcpTask.payload
+	if opcodedata <> invalid
+		opcode = opcodedata.opcode
+		payload = opcodedata.payload
+
+		if opcode = 1
+			print "Play request for: "; payload.url
+			m.player.visible = true
+			m.player.castContent = {
+				url: payload.url,
+				mime: payload.container,
+				time: payload.time
+			}
+			m.player.setFocus(true)
+		end if
 	end if
 end sub
 
 sub showspinner()
 	if(m.busyspinner.poster.loadStatus = "ready")
-
 		m.busyspinner.visible = true
 	end if
 end sub
