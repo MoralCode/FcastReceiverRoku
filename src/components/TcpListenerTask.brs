@@ -129,6 +129,11 @@ sub handleFcastOpcode(opcode as integer, payload as Object)
 	' 1 = Play, 2 = Pause, 3 = Resume, 4 = Stop, 5 = Seek
 	if opcode = 1
 		print "Play request for: "; payload.url
+		m.top.castContent = {
+			url: payload.url,
+			mime: payload.container,
+			time: payload.time
+		}
 	end if
 
 end sub
