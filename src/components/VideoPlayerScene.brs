@@ -1,9 +1,18 @@
 sub init()
 	m.video = m.top.findNode("videoPlayer")
+	m.video.observeField("state", "onStateChange")
 
 
 	' Give focus to the scene so it can eventually pass it to the video
 	m.top.setFocus(true)
+end sub
+
+sub onStateChange()
+	if m.video.state = "finished" or m.video.state = "error"
+		' Close the player view when done
+		m.top.visible = false
+		m.video.control = "stop"
+	end if
 end sub
 
 sub mapMimeType(mime as string) as string
