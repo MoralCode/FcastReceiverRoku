@@ -19,3 +19,5 @@ splash_screen_sd=pkg:/images/splash-screen_sd.png
 
 splash_color=#ffffff
 splash_min_time=1
+
+network_access=1
