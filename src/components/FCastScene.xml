@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component name="FCastScene" extends="Scene">
 
+	<script type="text/brightscript" uri="pkg:/components/FCastScene.brs" />
+
 	<children>
 		<Rectangle id="Background" width="1280" height="720" color="0x000000FF" />
 
@@ -15,12 +17,12 @@
 				horizAlign="center"
 				font="font:SmallSystemFont" />
 
-			<Poster
+			<BusySpinner
 				id="Spinner"
-				uri="pkg:/images/loader_ring.png"
-				width="80" height="80"
-				translation="[110, 220]"
-				rotationDirection="cw" />
+				translation="[107, 190]"
+				clockwise="false"
+				uri="pkg:/images/busyspinner_hd.png"
+				visible="false" />
 		</Group>
 
 		<Group id="ConnectionBox" translation="[700, 100]">
