@@ -6,6 +6,20 @@ sub init()
 	m.top.setFocus(true)
 end sub
 
+sub mapMimeType(mime as string) as string
+	mimeMap = {
+		"video/mp4":"mp4"
+		"application/x-mpegURL":"hls"
+		"video/x-matroska": "mkv"
+	}
+	convertedType = mimeMap[mime]
+	if convertedType <> invalid then
+		return convertedType
+	else
+		return invalid
+	end if
+end sub
+
 sub onCastContentChanged()
 	url = m.castContent.url
 	if url <> "" and url <> invalid
@@ -14,7 +28,7 @@ sub onCastContentChanged()
 		' Create the content node required by the Video player
 		videoContent = CreateObject("roSGNode", "ContentNode")
 		videoContent.url = url
-		videoContent.streamformat = "mp4" ' Grayjay usually sends mp4/mkv/hls
+		videoContent.streamformat = mapMimeType(m.castContent.mime)
 
 		' Set content and start playback
 		m.video.content = videoContent
