@@ -2,6 +2,16 @@ sub init()
 	m.top.functionName = "listenToTcp"
 end sub
 
+function ByteArrayToHex(bytes as object) as string
+	hexString = ""
+	for each byte in bytes
+		' Convert byte to hex (0-255)
+		hex = Right("0" + StrI(byte, 16), 2)
+		hexString += hex + " "
+	end for
+	return hexString
+end function
+
 sub listenToTcp()
 	' Create the TCP socket
 	tcp = CreateObject("roStreamSocket")
@@ -63,7 +73,7 @@ sub listenToTcp()
 				if newConn <> invalid and socketID = newConn.getID()
 					receivedByteCount = newConn.receive(buffer, 0, 512)
 					if receivedByteCount > 0
-						print "Echo input: '"; buffer.ToAsciiString(); "'"
+						print ByteArrayToHex(buffer)
 						' TODO: handle data here
 					else if receivedByteCount = 0 ' client closed
 						closed = True
