@@ -10,11 +10,14 @@ sub listenToTcp()
 		return
 	end if
 
+	buffer = CreateObject("roByteArray")
+	buffer[512] = 0
+
 	' Create a message port to receive socket events
 	port = CreateObject("roMessagePort")
 	tcp.setMessagePort(port)
 
-	' Setup the address and bind to the specified port
+	' Setup the receiving address and bind to the specified port
 	addr = CreateObject("roSocketAddress")
 	addr.setAddress("0.0.0.0")
 	addr.setPort(m.top.port)
@@ -22,6 +25,11 @@ sub listenToTcp()
 	if not tcp.setAddress(addr) then
 		print "ERROR: Could not set address."
 		return
+	end if
+
+	if not tcp.eOK()
+		print "Error creating listen socket"
+		stop
 	end if
 
 	' Start listening (the '5' is the max backlog of connections)
@@ -34,10 +42,10 @@ sub listenToTcp()
 		msg = wait(0, port)
 
 		if type(msg) = "roSocketEvent"
-			socketID = msg.getSocketID()
+			socketID = msg.GetSocketID()
 
 			' If the event is on our main listener, accept the connection
-			if socketID = tcp.getSocketID()
+			if socketID = tcp.getID() and tcp.isReadable()
 				newConn = tcp.accept()
 				if newConn <> invalid
 					print "--- New Connection Established ---"
@@ -51,17 +59,24 @@ sub listenToTcp()
 
 				' We need to find which socket triggered the message
 				' For simplicity, we assume the last accepted connection:
-				if newConn <> invalid and socketID = newConn.getSocketID()
-					receivedData = newConn.receive(10) ' Buffer size
-					if receivedData <> invalid
-						' Convert roByteArray to ASCII String and print
-						print "Received: " ; receivedData.getText()
-					else
-						print "--- Connection Closed by Sender ---"
+				closed = False
+				if newConn <> invalid and socketID = newConn.getID()
+					receivedByteCount = newConn.receive(buffer, 0, 512)
+					if receivedByteCount > 0
+						print "Echo input: '"; buffer.ToAsciiString(); "'"
+						' TODO: handle data here
+					else if receivedByteCount = 0 ' client closed
+						closed = True
+					end if
+					if closed or not newConn.eOK()
+						' print "closing connection " changedID
 						newConn.close()
+						' newConn.delete(Stri(changedID))
 					end if
 				end if
 			end if
+		else 
+			print "other event received"
 		end if
 	end while
 end sub
