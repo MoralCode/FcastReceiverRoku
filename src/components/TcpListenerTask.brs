@@ -16,6 +16,7 @@ sub listenToTcp()
 
 	' Setup the address and bind to the specified port
 	addr = CreateObject("roSocketAddress")
+	addr.setAddress("0.0.0.0")
 	addr.setPort(m.top.port)
 
 	if not tcp.setAddress(addr) then
