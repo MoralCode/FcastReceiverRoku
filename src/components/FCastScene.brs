@@ -27,6 +27,11 @@ sub init()
 
 	print "TCP Task Thread Started..."
 
+	' Pre-create the player but keep it hidden
+	m.player = CreateObject("roSGNode", "VideoPlayerScene")
+	m.player.visible = false
+	m.top.appendChild(m.player)
+
 	m.top.setFocus(true)
 end sub
 

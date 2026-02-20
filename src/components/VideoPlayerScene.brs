@@ -29,15 +29,16 @@ sub mapMimeType(mime as string) as string
 	end if
 end sub
 
-sub onCastContentChanged()
-	url = m.castContent.url
+' this will get called by the main UI
+sub playContent(castContent as Object)
+	url = castContent.url
 	if url <> "" and url <> invalid
 		print "MainScene: Launching video -> "; url
 
 		' Create the content node required by the Video player
 		videoContent = CreateObject("roSGNode", "ContentNode")
 		videoContent.url = url
-		videoContent.streamformat = mapMimeType(m.castContent.mime)
+		videoContent.streamformat = mapMimeType(castContent.mime)
 
 		' Set content and start playback
 		m.video.content = videoContent
