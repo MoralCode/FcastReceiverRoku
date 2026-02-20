@@ -24,6 +24,7 @@ sub listenToTcp()
 	end if
 
 	' Start listening (the '5' is the max backlog of connections)
+	tcp.notifyReadable(true)
 	tcp.listen(5)
 	print "TCP Listener started on port: "; m.top.port
 
@@ -40,6 +41,7 @@ sub listenToTcp()
 				if newConn <> invalid
 					print "--- New Connection Established ---"
 					newConn.setMessagePort(port)
+					newConn.notifyReadable(true)
 				end if
 			else
 				' If the event is on an existing connection, receive data
