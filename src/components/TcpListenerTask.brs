@@ -28,7 +28,7 @@ function DecodeFCastPacket(bytes as object) as object
 	' 2. Validation
 	actualDataSize = bytes.count() - headerLength
 
-	data = ParseJson("{}")
+	data = invalid
 
 	if actualDataSize < packetLength then
 		print "ERROR: Incomplete packet. Need "; packetLength ; " but got "; actualDataSize
