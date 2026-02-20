@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component name="VideoPlayerScene" extends="Scene">
+	<interface>	
+		<field id="castContent" type="assocarray" onChange="onCastContentChanged" />
+	</interface>
 	<children>
 		<Video
 			id="videoPlayer"
