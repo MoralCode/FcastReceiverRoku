@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component name="FCastScene" extends="Scene">
+
+	<children>
+		<Rectangle id="Background" width="1280" height="720" color="0x000000FF" />
+
+		<Group id="BrandSection" translation="[150, 250]">
+			<Poster id="Logo" uri="pkg:/images/logo.png" width="172" height="100" />
+
+			<Label
+				id="StatusLabel"
+				text="Waiting for a connection"
+				translation="[0, 150]"
+				width="300"
+				horizAlign="center"
+				font="font:SmallSystemFont" />
+
+			<Poster
+				id="Spinner"
+				uri="pkg:/images/loader_ring.png"
+				width="80" height="80"
+				translation="[110, 220]"
+				rotationDirection="cw" />
+		</Group>
+
+		<Group id="ConnectionBox" translation="[700, 100]">
+			<Rectangle width="450" height="520" color="0x1A1A1AFF" />
+
+			<Label
+				text="Connection Information"
+				width="450"
+				translation="[0, 20]"
+				horizAlign="center"
+				font="font:MediumBoldSystemFont" />
+
+			<Rectangle width="400" height="1" color="0x333333FF" translation="[25, 60]" />
+
+			<Label
+				text="Scan with a FCast sender app"
+				width="450"
+				translation="[0, 80]"
+				horizAlign="center"
+				color="0xFFFFFFFF" />
+
+			<Rectangle id="QRBackground" width="200" height="200" translation="[125, 130]"
+				color="0xFFFFFFFF" />
+			<Poster id="QRCode" uri="pkg:/images/qr_placeholder.png" width="180" height="180"
+				translation="[135, 140]" />
+
+			<Label
+				text="Need a sender app?"
+				width="450"
+				translation="[0, 350]"
+				horizAlign="center"
+				size="18" />
+			<Label
+				text="Download Grayjay at https://grayjay.app"
+				width="450"
+				translation="[0, 380]"
+				horizAlign="center"
+				color="0x2196F3FF" />
+
+			<Label
+				text="Connection Details"
+				width="450"
+				translation="[0, 430]"
+				horizAlign="center"
+				font="font:MediumBoldSystemFont" />
+
+			<Label text="10.0.0.211" translation="[100, 480]" font="font:SmallSystemFont" />
+			<Label text="wlp170s0" translation="[280, 480]" font="font:SmallSystemFont" />
+
+			<Label text="Port" translation="[0, 510]" width="450" horizAlign="center"
+				color="0xAAAAAAFF" />
+			<Label text="46899 (TCP)" translation="[0, 540]" width="450" horizAlign="center" />
+		</Group>
+	</children>
+
+</component>

@@ -6,14 +6,14 @@
 '*************************************************************
 
 sub Main()
-    print "in showChannelSGScreen"
+    print "Starting Main Fcast Roku Receiver"
     'Indicate this is a Roku SceneGraph application'
     screen = CreateObject("roSGScreen")
     m.port = CreateObject("roMessagePort")
     screen.setMessagePort(m.port)
 
     'Create a scene and load /components/helloworld.xml'
-    scene = screen.CreateScene("MainScene")
+    scene = screen.CreateScene("FCastScene")
     screen.show()
 
     while(true)
