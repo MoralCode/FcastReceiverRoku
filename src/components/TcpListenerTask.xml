@@ -2,7 +2,7 @@
 <component name="TcpListenerTask" extends="Task">
 	<interface>
 		<field id="port" type="int" value="46899" />
-		<field id="castContent" type="assocarray" />
+		<field id="payload" type="assocarray" />
 	</interface>
 
 	<script type="text/brightscript" uri="pkg:/components/TcpListenerTask.brs" />
