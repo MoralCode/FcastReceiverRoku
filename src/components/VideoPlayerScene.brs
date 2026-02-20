@@ -1,15 +1,6 @@
 sub init()
 	m.video = m.top.findNode("videoPlayer")
 
-	' 1. Create and start the FCast Task
-	m.fcastTask = CreateObject("roSGNode", "FCastTask")
-
-	' 2. Observe the streamUrl field
-	' Whenever FCastTask updates streamUrl, onStreamUrlChanged is called
-	m.fcastTask.observeField("streamUrl", "onStreamUrlChanged")
-
-	' 3. Start the server
-	m.fcastTask.control = "RUN"
 
 	' Give focus to the scene so it can eventually pass it to the video
 	m.top.setFocus(true)
