@@ -25,8 +25,8 @@
 				visible="false" />
 		</Group>
 
-		<Group id="ConnectionBox" translation="[700, 100]">
-			<Rectangle width="450" height="520" color="0x1A1A1AFF" />
+		<Group id="ConnectionBox" translation="[700, 50]">
+			<Rectangle width="450" height="580" color="0x1A1A1AFF" />
 
 			<Label
 				text="Connection Information"
