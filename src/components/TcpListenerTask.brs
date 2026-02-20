@@ -27,24 +27,19 @@ function DecodeFCastPacket(bytes as object) as object
 	print "Detected Packet Length: "; packetLength
 	' 2. Validation
 	actualDataSize = bytes.count() - headerLength
-	if actualDataSize < packetLength
+
+	data = ParseJson("{}")
+
+	if actualDataSize < packetLength then
 		print "ERROR: Incomplete packet. Need "; packetLength ; " but got "; actualDataSize
 		return invalid
+	else if actualDataSize > 0 then
+		slice = bytes.Slice(headerLength)
+		asciislice = slice.ToAsciiString()
+		data = ParseJson(asciislice)
 	end if
 
-	' 3. Extract JSON Payload
-	payloadBytes = CreateObject("roByteArray")
-	' Using the built-in slice-like method for efficiency if available,
-	' otherwise a loop works perfectly:
-	for i = headerLength to (headerLength + packetLength - 1)
-		payloadBytes.push(bytes[i])
-	end for
-	print ByteArrayToHex(payloadBytes)
-	jsonString = payloadBytes.ToAsciiString()
-	
-
-	' 4. Parse JSON
-	return ParseJson(jsonString)
+	return { opcode: opcode, data: data }
 end function
 
 sub listenToTcp()
