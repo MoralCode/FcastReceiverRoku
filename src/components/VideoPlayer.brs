@@ -32,11 +32,15 @@ end sub
 sub buildContentNodeForVideo(castContent as object)
 	' Create the content node required by the Video player
 	videoContent = CreateObject("roSGNode", "ContentNode")
-	videoContent.url = castContent.url
 	mimetype = mapMimeType(castContent.mime)
 	if mapMimeType = invalid then
 		print "Invalid Mime type provided: " + castContent.mime + " Could not map to a roku streamformat"
 	end if
+
+	if mimetype = "mp4" then
+		videoContent.url = castContent.url
+	end if
+
 	videoContent.StreamFormat = mimetype
 end sub
 
