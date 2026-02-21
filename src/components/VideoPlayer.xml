@@ -5,7 +5,7 @@
 	</interface>
 	<children>
 		<Video
-			id="videoPlayer"
+			id="videoElement"
 			width="1920"
 			height="1080"
 			visible="false" />

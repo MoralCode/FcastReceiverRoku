@@ -1,5 +1,5 @@
 sub init()
-	m.video = m.top.findNode("videoPlayer")
+	m.video = m.top.findNode("videoElement")
 	m.video.observeField("state", "onStateChange")
 
 
