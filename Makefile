@@ -1,3 +1,5 @@
+setup:
+	npm install brighterscript -g
+
 build:
-	mkdir -p dist/
-	( cd src && zip -r ../dist/fcast.zip . )
+	bsc

@@ -11,5 +11,5 @@
 			visible="false" />
 	</children>
 
-	<script type="text/brightscript" uri="pkg:/components/VideoPlayer.brs" />
+	<script type="text/brightscript" uri="pkg:/components/VideoPlayer.bs" />
 </component>

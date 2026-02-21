@@ -29,7 +29,7 @@ sub mapMimeType(mime as string) as string
 	end if
 end sub
 
-sub buildContentNodeForVideo(castContent as object)
+sub buildContentNodeForVideo(castContent as object) as object
 	' Create the content node required by the Video player
 	videoContent = CreateObject("roSGNode", "ContentNode")
 	mimetype = mapMimeType(castContent.mime)
@@ -42,6 +42,8 @@ sub buildContentNodeForVideo(castContent as object)
 	end if
 
 	videoContent.StreamFormat = mimetype
+
+	return videoContent
 end sub
 
 sub onCastContentChanged()

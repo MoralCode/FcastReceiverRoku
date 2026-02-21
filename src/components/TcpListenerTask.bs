@@ -1,46 +1,8 @@
+import "pkg:/source/protocol.bs"
+
 sub init()
 	m.top.functionName = "listenToTcp"
 end sub
-
-function ByteArrayToHex(bytes as object) as string
-	hexString = ""
-	for each byte in bytes
-		' Convert byte to hex (0-255)
-		hex = Right("0" + StrI(byte, 16), 2)
-		hexString += hex + " "
-	end for
-	return hexString
-end function
-
-function DecodeFCastPacket(bytes as object) as object
-	if bytes = invalid or bytes.count() < 5 then return invalid
-
-	' 1. Extract Length (First 4 bytes, Little Endian)
-	' Index 0 is the lowest value, Index 3 is the highest value
-	' Formula: byte0 + (byte1 << 8) + (byte2 << 16) + (byte3 << 24)
-	headerLength = 5
-
-	packetLength = bytes[0] + (bytes[1] * 256) + (bytes[2] * 65536) + (bytes[3] * 16777216)
-	' opcode is the 5th byte
-	opcode = bytes[4]
-
-	print "Detected Packet Length: "; packetLength
-	' 2. Validation
-	actualDataSize = bytes.count() - headerLength
-
-	data = invalid
-
-	if actualDataSize < packetLength then
-		print "ERROR: Incomplete packet. Need "; packetLength ; " but got "; actualDataSize
-		return invalid
-	else if actualDataSize > 0 then
-		slice = bytes.Slice(headerLength, headerLength + packetLength)
-		asciislice = slice.ToAsciiString()
-		data = ParseJson(asciislice)
-	end if
-
-	return { opcode: opcode, payload: data }
-end function
 
 sub listenToTcp()
 	' Create the TCP socket
@@ -105,7 +67,7 @@ sub listenToTcp()
 					receivedByteCount = newConn.receive(buffer, 0, bufferSize)
 					if receivedByteCount > 0
 						' print ByteArrayToHex(buffer)
-						fcastPacket = DecodeFCastPacket(buffer)
+						fcastPacket = protocol.DecodeBytes(buffer)
 						if fcastPacket <> invalid then
 							m.top.payload = fcastPacket
 
