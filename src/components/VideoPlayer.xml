@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component name="VideoPlayerScene" extends="Scene">
+<component name="VideoPlayer" extends="Node">
 	<interface>	
 		<field id="castContent" type="assocarray" onChange="onCastContentChanged" />
 	</interface>
@@ -11,5 +11,5 @@
 			visible="false" />
 	</children>
 
-	<script type="text/brightscript" uri="pkg:/components/VideoPlayerScene.brs" />
+	<script type="text/brightscript" uri="pkg:/components/VideoPlayer.brs" />
 </component>
