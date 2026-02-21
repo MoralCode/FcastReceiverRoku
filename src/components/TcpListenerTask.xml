@@ -5,5 +5,5 @@
 		<field id="payload" type="assocarray" />
 	</interface>
 
-	<script type="text/brightscript" uri="pkg:/components/TcpListenerTask.brs" />
+	<script type="text/brightscript" uri="pkg:/components/TcpListenerTask.bs" />
 </component>
