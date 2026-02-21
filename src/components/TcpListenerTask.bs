@@ -1,3 +1,5 @@
+import "pkg:/source/protocol.bs"
+
 sub init()
 	m.top.functionName = "listenToTcp"
 end sub

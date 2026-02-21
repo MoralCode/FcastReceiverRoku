@@ -1,0 +1,30 @@
+namespace protocol
+
+	enum Opcode
+		play = 1
+		pause
+		resume
+		stop
+		seek
+		playbackUpdate
+		volumeUpdate
+		setVolume
+		playbackError
+		setSpeed
+		version
+		ping
+		pong
+		initial
+		playUpdate
+		setPlaylistItem
+		subscribeEvent
+		unsubscribeEvent
+		event
+	end enum
+
+	class FCastMessage
+		opcode as protocol.Opcode
+		payload as dynamic
+	end class
+
+end namespace
