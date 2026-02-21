@@ -4,15 +4,6 @@ sub init()
 	m.top.functionName = "listenToTcp"
 end sub
 
-function ByteArrayToHex(bytes as object) as string
-	hexString = ""
-	for each byte in bytes
-		' Convert byte to hex (0-255)
-		hex = Right("0" + StrI(byte, 16), 2)
-		hexString += hex + " "
-	end for
-	return hexString
-end function
 
 function DecodeFCastPacket(bytes as object) as protocol.FCastMessage
 	if bytes = invalid or bytes.count() < 5 then return invalid
