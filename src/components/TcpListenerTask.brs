@@ -34,7 +34,7 @@ function DecodeFCastPacket(bytes as object) as object
 		print "ERROR: Incomplete packet. Need "; packetLength ; " but got "; actualDataSize
 		return invalid
 	else if actualDataSize > 0 then
-		slice = bytes.Slice(headerLength)
+		slice = bytes.Slice(headerLength, headerLength + packetLength)
 		asciislice = slice.ToAsciiString()
 		data = ParseJson(asciislice)
 	end if
