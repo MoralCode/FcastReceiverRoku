@@ -44,6 +44,7 @@ sub onPayloadReceived()
 		if opcode = 1
 			print "Play request for: "; payload.url
 			m.player.visible = true
+			m.top.visible = false
 			m.player.castContent = {
 				url: payload.url,
 				mime: payload.container,

@@ -37,7 +37,8 @@ sub onCastContentChanged()
 		' Create the content node required by the Video player
 		videoContent = CreateObject("roSGNode", "ContentNode")
 		videoContent.url = url
-		videoContent.streamformat = mapMimeType(m.castContent.mime)
+		mimetype = mapMimeType(m.top.castContent.mime)
+		videoContent.StreamFormat = mimetype
 
 		' Set content and start playback
 		m.video.content = videoContent
