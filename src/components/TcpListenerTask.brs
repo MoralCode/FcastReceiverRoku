@@ -50,8 +50,9 @@ sub listenToTcp()
 		return
 	end if
 
+	bufferSize = 2048
 	buffer = CreateObject("roByteArray")
-	buffer[512] = 0
+	buffer[bufferSize] = 0
 
 	' Create a message port to receive socket events
 	port = CreateObject("roMessagePort")
@@ -101,7 +102,7 @@ sub listenToTcp()
 				' For simplicity, we assume the last accepted connection:
 				closed = False
 				if newConn <> invalid and socketID = newConn.getID()
-					receivedByteCount = newConn.receive(buffer, 0, 512)
+					receivedByteCount = newConn.receive(buffer, 0, bufferSize)
 					if receivedByteCount > 0
 						' print ByteArrayToHex(buffer)
 						fcastPacket = DecodeFCastPacket(buffer)
