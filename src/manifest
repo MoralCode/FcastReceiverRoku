@@ -21,3 +21,5 @@ splash_color=#ffffff
 splash_min_time=1
 
 network_access=1
+
+ui_resolutions=HD
