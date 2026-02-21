@@ -38,6 +38,9 @@ sub onCastContentChanged()
 		videoContent = CreateObject("roSGNode", "ContentNode")
 		videoContent.url = url
 		mimetype = mapMimeType(m.top.castContent.mime)
+		if mapMimeType = invalid then
+			print "Invalid Mime type provided: " + m.top.castContent.mime + " Could not map to a roku streamformat"
+		end if 
 		videoContent.StreamFormat = mimetype
 
 		' Set content and start playback
