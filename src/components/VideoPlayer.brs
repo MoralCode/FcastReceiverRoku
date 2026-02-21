@@ -29,20 +29,23 @@ sub mapMimeType(mime as string) as string
 	end if
 end sub
 
+sub buildContentNodeForVideo(castContent as object)
+	' Create the content node required by the Video player
+	videoContent = CreateObject("roSGNode", "ContentNode")
+	videoContent.url = castContent.url
+	mimetype = mapMimeType(castContent.mime)
+	if mapMimeType = invalid then
+		print "Invalid Mime type provided: " + castContent.mime + " Could not map to a roku streamformat"
+	end if
+	videoContent.StreamFormat = mimetype
+end sub
+
 sub onCastContentChanged()
 	url = m.top.castContent.url
 	if url <> "" and url <> invalid
 		print "MainScene: Launching video -> "; url
 
-		' Create the content node required by the Video player
-		videoContent = CreateObject("roSGNode", "ContentNode")
-		videoContent.url = url
-		mimetype = mapMimeType(m.top.castContent.mime)
-		if mapMimeType = invalid then
-			print "Invalid Mime type provided: " + m.top.castContent.mime + " Could not map to a roku streamformat"
-		end if 
-		videoContent.StreamFormat = mimetype
-
+		videoContent = buildContentNodeForVideo(m.top.castContent)
 		' Set content and start playback
 		m.video.content = videoContent
 		m.video.visible = true
