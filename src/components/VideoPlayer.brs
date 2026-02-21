@@ -45,17 +45,14 @@ sub buildContentNodeForVideo(castContent as object)
 end sub
 
 sub onCastContentChanged()
-	url = m.top.castContent.url
-	if url <> "" and url <> invalid
-		print "MainScene: Launching video -> "; url
+	print "MainScene: Launching video"
 
-		videoContent = buildContentNodeForVideo(m.top.castContent)
-		' Set content and start playback
-		m.video.content = videoContent
-		m.video.visible = true
-		m.video.control = "play"
-		m.video.setFocus(true)
-	end if
+	videoContent = buildContentNodeForVideo(m.top.castContent)
+	' Set content and start playback
+	m.video.content = videoContent
+	m.video.visible = true
+	m.video.control = "play"
+	m.video.setFocus(true)
 end sub
 
 function onKeyEvent(key as string, press as boolean) as boolean
