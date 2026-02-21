@@ -24,7 +24,7 @@ namespace protocol
 
 	class FCastMessage
 		opcode as protocol.Opcode
-		payload as dynamic
+		payload as object
 	end class
 
 end namespace

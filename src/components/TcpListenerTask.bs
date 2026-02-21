@@ -14,7 +14,7 @@ function ByteArrayToHex(bytes as object) as string
 	return hexString
 end function
 
-function DecodeFCastPacket(bytes as object) as object
+function DecodeFCastPacket(bytes as object) as protocol.FCastMessage
 	if bytes = invalid or bytes.count() < 5 then return invalid
 
 	' 1. Extract Length (First 4 bytes, Little Endian)
@@ -41,7 +41,7 @@ function DecodeFCastPacket(bytes as object) as object
 		data = ParseJson(asciislice)
 	end if
 
-	return { opcode: opcode, payload: data }
+	return new protocol.FCastMessage(opcode, data)
 end function
 
 sub listenToTcp()
