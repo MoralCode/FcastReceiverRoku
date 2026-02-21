@@ -110,6 +110,7 @@ sub listenToTcp()
 							m.top.payload = fcastPacket
 
 						end if
+						buffer.clear()
 					else if receivedByteCount = 0 ' client closed
 						closed = True
 					end if
