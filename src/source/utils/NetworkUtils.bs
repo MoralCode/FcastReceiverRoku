@@ -1,4 +1,6 @@
-function GetFirstLocalIPAddress() as Object
-	deviceInfo = CreateObject("roDeviceInfo")
-	return deviceInfo.GetIPAddrs().items()[0]
-end function
+namespace util
+	function GetFirstLocalIPAddress() as Object
+		deviceInfo = CreateObject("roDeviceInfo")
+		return deviceInfo.GetIPAddrs().items()[0]
+	end function
+end namespace 

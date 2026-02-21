@@ -10,7 +10,7 @@ sub init()
 
 	ipAddress = m.top.findNode("ipAddress")
 	networkInterface = m.top.findNode("networkInterface")
-	ipData = GetFirstLocalIPAddress()
+	ipData = util.GetFirstLocalIPAddress()
 	ipAddress.text = ipData.value
 	networkInterface.text = ipData.key
 
