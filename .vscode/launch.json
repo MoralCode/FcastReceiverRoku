@@ -13,6 +13,7 @@
 			"password": "${env:ROKU_PASSWORD}",
 			"rootDir": "${workspaceFolder}/out",
 			"envFile": "${workspaceFolder}/.vscode/.env",
+			"injectRdbOnDeviceComponent": true,
 			"preLaunchTask": "npm: compile",
 		}
 	]
