@@ -10,6 +10,4 @@
 			height="720"
 			visible="false" />
 	</children>
-
-	<script type="text/brightscript" uri="pkg:/components/VideoPlayer.bs" />
 </component>

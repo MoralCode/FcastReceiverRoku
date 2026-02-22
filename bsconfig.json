@@ -3,4 +3,5 @@
 	"stagingDir": "out",
 	"outFile": "./dist/FCast-Channel.zip",
 	"sourceMap": true,
+	"autoImportComponentScript": true,
 }
