@@ -1,0 +1,12 @@
+{
+	"name": "fcast-roku-channel",
+	"displayName": "FCast Roku Channel (Unofficial)",
+	"scripts": {
+		"build": "bsc",
+		"compile": "bsc --create-package false",
+		"clean": "rm -r out/ dist/"
+	},
+	"dependencies": {
+		"brighterscript": "^0.70.3"
+	}
+}

@@ -11,8 +11,9 @@
 			"request": "launch",
 			"host": "${env:ROKU_HOST}",
 			"password": "${env:ROKU_PASSWORD}",
-			"rootDir": "${workspaceFolder}/src",
+			"rootDir": "${workspaceFolder}/out",
 			"envFile": "${workspaceFolder}/.vscode/.env",
+			"preLaunchTask": "npm: compile",
 		}
 	]
 }
