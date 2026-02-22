@@ -1,3 +1,5 @@
 {
-	"rootDir": "src"
+	"rootDir": "src",
+	"stagingDir": "out",
+	"outFile": "./dist/FCast-Channel.zip",
 }
