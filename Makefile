@@ -3,3 +3,6 @@ setup:
 
 build:
 	bsc
+
+clean:
+	rm -r out/ dist/
