@@ -38,8 +38,9 @@ sub listenToTcp()
 	' Start listening (the '5' is the max backlog of connections)
 	tcp.notifyReadable(true)
 	tcp.listen(5)
+	#if logging
 	print "TCP Listener started on port: "; m.top.port
-
+	#end if
 	while true
 		' Wait for an event (connection request or data)
 		msg = wait(0, port)
@@ -51,7 +52,9 @@ sub listenToTcp()
 			if socketID = tcp.getID() and tcp.isReadable()
 				newConn = tcp.accept()
 				if newConn <> invalid
+					#if logging
 					print "--- New Connection Established ---"
+					#end if
 					newConn.setMessagePort(port)
 					newConn.notifyReadable(true)
 				end if
@@ -84,7 +87,9 @@ sub listenToTcp()
 				end if
 			end if
 		else 
+			#if logging
 			print "other event received"
+			#end if
 		end if
 	end while
 end sub

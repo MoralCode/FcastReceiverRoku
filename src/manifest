@@ -23,3 +23,5 @@ splash_min_time=1
 network_access=1
 
 ui_resolutions=HD
+
+bs_const=debug=false;logging=false

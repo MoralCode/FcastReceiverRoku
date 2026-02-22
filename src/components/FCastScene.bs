@@ -29,9 +29,9 @@ sub init()
 
 	' 5. Start the thread
 	m.tcpTask.control = "RUN"
-
+	#if logging
 	print "TCP Task Thread Started..."
-
+	#end if
 	m.tcpTask.observeField("payload", "onPayloadReceived")
 
 	m.top.setFocus(true)
@@ -44,7 +44,9 @@ sub onPayloadReceived()
 		payload = opcodedata.payload
 
 		if opcode = 1
+			# if logging
 			print "Play request for: "; payload.url
+			# end if
 			m.player.visible = true
 			m.top.visible = false
 			m.player.castContent = {

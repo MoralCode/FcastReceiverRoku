@@ -47,8 +47,9 @@ sub buildContentNodeForVideo(castContent as object) as object
 end sub
 
 sub onCastContentChanged()
+	#if logging
 	print "MainScene: Launching video"
-
+	#end if
 	videoContent = buildContentNodeForVideo(m.top.castContent)
 	' Set content and start playback
 	m.video.content = videoContent

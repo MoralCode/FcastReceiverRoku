@@ -14,6 +14,10 @@
 			"rootDir": "${workspaceFolder}/out",
 			"envFile": "${workspaceFolder}/.vscode/.env",
 			"injectRdbOnDeviceComponent": true,
+			"bsConst": {
+				"debug": true,
+				"logging": false
+			},
 			"preLaunchTask": "npm: compile",
 		}
 	]
