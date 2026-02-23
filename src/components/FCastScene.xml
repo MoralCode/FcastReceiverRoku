@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component name="FCastScene" extends="Scene">
+	<script type="text/brightscript" uri="pkg:/components/FCastScene.bs" />
+
 	<children>
 		<Rectangle id="Background" width="1280" height="720" color="0x000000FF" />
 
