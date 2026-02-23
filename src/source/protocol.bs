@@ -29,6 +29,12 @@ namespace protocol
 	end enum
 
 	class FCastMessage
+
+		sub new(opcode as protocol.Opcode, payload as object)
+			m.opcode = opcode
+			m.payload = payload
+		end sub
+		
 		opcode as protocol.Opcode
 		payload as object
 	end class
