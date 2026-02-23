@@ -6,3 +6,7 @@ build:
 
 clean:
 	rm -r out/ dist/
+
+deploy:
+	. .env.sh
+	bsc --deploy --host "${ROKU_HOST}" --password "${ROKU_PASSWORD}"
