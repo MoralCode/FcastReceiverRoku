@@ -3,7 +3,7 @@
 	"displayName": "FCast Roku Channel (Unofficial)",
 	"scripts": {
 		"build": "bsc",
-		"build:dev": "bsc --out-file ./dist/dev-out.zip",
+		"build:dev": "bsc --project bsconfig-dev.json",
 		"compile": "bsc --create-package false",
 		"clean": "rm -r out/ dist/"
 	},

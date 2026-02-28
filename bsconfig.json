@@ -1,16 +1,5 @@
 {
 	"rootDir": "src",
-	// "sourceRoot": "src",
 	"stagingDir": "./dist/staging",
-	// "stagingDir": "./dist/.roku-deploy-staging",
-	"outFile": "./dist/FCast-Channel.zip",
-	"sourceMap": true,
-	"retainStagingDir": true,
-	"sourceDirs": [
-		"./src"
-	],
-	"files": [
-		//every file under the `src` folder should be included in the package
-		"**/*"
-	]
+	"outFile": "./dist/FCast-Channel.zip"
 }
