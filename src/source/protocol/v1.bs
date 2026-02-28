@@ -1,6 +1,12 @@
 
 namespace protocol.v1
 
+	enum PlaybackState
+		idle
+		playing
+		paused
+	end enum
+
 	class PlayMessage
 		container as string 'The MIME type (video/mp4)
 		optional url as string 'The URL to load (optional)
@@ -14,7 +20,7 @@ namespace protocol.v1
 
 	class PlaybackUpdateMessage
 		time as integer 'The current time playing in seconds
-		state as protocol.PlaybackState 'The playback state
+		state as protocol.v1.PlaybackState 'The playback state
 	end class
 
 	class VolumeUpdateMessage

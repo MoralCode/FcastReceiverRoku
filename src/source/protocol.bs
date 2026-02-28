@@ -24,12 +24,6 @@ namespace protocol
 		event
 	end enum
 
-	enum PlaybackState
-		idle
-		playing
-		paused
-	end enum
-
 	class FCastMessage
 
 		sub new(opcode as protocol.Opcode, payload as object)
