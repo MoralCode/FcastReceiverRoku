@@ -150,6 +150,24 @@ namespace protocol
 			data = ParseJson(asciislice)
 		end if
 
+		if opcode = Opcode.play then
+			data = data as PlayMessage
+		else if opcode = Opcode.seek then
+			data = data as SeekMessage
+		else if opcode = Opcode.playbackUpdate then
+			data = data as PlaybackUpdateMessage
+		else if opcode = Opcode.volumeUpdate then
+			data = data as VolumeUpdateMessage
+		else if opcode = Opcode.setVolume then
+			data = data as SetVolumeMessage
+		else if opcode = Opcode.playbackError then
+			data = data as PlaybackErrorMessage
+		else if opcode = Opcode.setSpeed then
+			data = data as SetSpeedMessage
+		else if opcode = Opcode.setSpeed then
+			data = data as SetSpeedMessage
+		end if
+
 		return new protocol.FCastMessage(opcode, data)
 	end function
 
