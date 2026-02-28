@@ -1,4 +1,4 @@
-import "pkg:/source/protocol.bs"
+import "pkg:/source/protocol/util.bs"
 import "pkg:/source/protocol/v2.bs"
 sub init()
 	m.top.functionName = "listenToTcp"
