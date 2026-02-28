@@ -11,14 +11,18 @@
 			"request": "launch",
 			"host": "${env:ROKU_HOST}",
 			"password": "${env:ROKU_PASSWORD}",
-			"rootDir": "${workspaceFolder}/out",
+			// "rootDir": "${workspaceFolder}/out",
 			"envFile": "${workspaceFolder}/.vscode/.env",
+			"rootDir": "${workspaceFolder}/dist/staging",
+			"stagingDir": "${workspaceFolder}/dist/staging2",
+			"packagePath": "${workspaceFolder}/dist/dev-out.zip",
+			"retainStagingFolder": true,
 			"injectRdbOnDeviceComponent": true,
-			"bsConst": {
-				"debug": true,
-				"logging": false
-			},
-			"preLaunchTask": "npm: compile",
+			// "bsConst": {
+			// 	"debug": true,
+			// 	"logging": false
+			// },
+			"preLaunchTask": "npm: build dev"
 		}
 	]
 }

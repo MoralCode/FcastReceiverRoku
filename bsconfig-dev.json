@@ -1,0 +1,14 @@
+{
+	"rootDir": "src",
+	"stagingDir": "./dist/staging",
+	"outFile": "./dist/dev-out.zip",
+	"sourceMap": true,
+	"retainStagingDir": true,
+	"sourceDirs": [
+		"./src"
+	],
+	"files": [
+		//every file under the `src` folder should be included in the package
+		"**/*"
+	]
+}

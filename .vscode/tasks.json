@@ -8,6 +8,14 @@
 			"problemMatcher": [],
 			"label": "npm: compile",
 			"detail": "transpile bs to bsc"
+		},
+		{
+			"type": "npm",
+			"script": "build:dev",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: build dev",
+			"detail": "transpile bs to bsc"
 		}
 	]
 }

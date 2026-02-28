@@ -2,5 +2,14 @@
 	"cSpell.words": [
 		"brighterscript",
 		"fcast"
-	]
+	],
+	"brightscript.bsdk": "./node_modules/brighterscript",
+	"brightscript.debug.outDir": "/", // something is weird here
+	"brightscript.output.hyperlinkFormat": "Full",
+	"brightscript.deviceDiscovery.includeNonDeveloperDevices": true,
+	// "brightscript.debug.envFile": "",
+	"brightscript.debug.stagingDir": "${workspaceFolder}/dist/staging",
+	"brightscript.debug.sourceDirs": [
+		"${workspaceFolder}/src"
+	],
 }
