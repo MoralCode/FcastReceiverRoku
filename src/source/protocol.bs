@@ -41,8 +41,13 @@ namespace protocol
 		sub toBytes(buffer as object, bufferSize as integer)
 			payloadData = invalid
 			if m.payload <> invalid then
-				payloadData = FormatJson
+				payloadData = FormatJson(m.payload)
 			end if
+
+			payloadBuffer = CreateObject("roByteArray")
+			payloadBuffer[2048] = 0
+
+			payloadBuffer.FromAsciiString(payloadData)
 
 			packetLength = 1 ' default
 
@@ -54,11 +59,10 @@ namespace protocol
 			buffer[2] = (packetLength >> 16) and &HFF
 			buffer[3] = (packetLength >> 24) and &HFF
 			buffer[4] = m.opcode
-
-			for x = 0 to packetLength - 1
-				buffer[5 + x] = payloadData[x]
+			for x = 0 to packetLength - 1 - 1
+				buffer[5 + x] = payloadBuffer[x]
 			end for
-			buffer[5+packetLength] = 0
+			buffer[5+packetLength - 1] = 0
 
 			' return buffer
 
