@@ -37,6 +37,32 @@ namespace protocol
 		
 		opcode as protocol.Opcode
 		payload as object
+
+		sub toBytes(buffer as object, bufferSize as integer)
+			payloadData = invalid
+			if m.payload <> invalid then
+				payloadData = FormatJson
+			end if
+
+			packetLength = 1 ' default
+
+			if payloadData <> invalid then
+				packetLength = packetLength + Len(payloadData)
+			end if
+			buffer[0] = (packetLength and &HFF)
+			buffer[1] = (packetLength >> 8) and &HFF
+			buffer[2] = (packetLength >> 16) and &HFF
+			buffer[3] = (packetLength >> 24) and &HFF
+			buffer[4] = m.opcode
+
+			for x = 0 to packetLength - 1
+				buffer[5 + x] = payloadData[x]
+			end for
+			buffer[5+packetLength] = 0
+
+			' return buffer
+
+		end sub
 	end class
 
 	class PlayMessage
