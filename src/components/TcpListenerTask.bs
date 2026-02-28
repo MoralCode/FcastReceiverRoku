@@ -12,6 +12,8 @@ sub listenToTcp()
 		return
 	end if
 
+	connections = {}
+
 	bufferSize = 2048
 	buffer = CreateObject("roByteArray")
 	buffer[bufferSize] = 0
@@ -57,17 +59,14 @@ sub listenToTcp()
 					#end if
 					newConn.setMessagePort(port)
 					newConn.notifyReadable(true)
+					connections[Stri(newConn.getID())] = newConn
 				end if
 			else
-				' If the event is on an existing connection, receive data
-				' Note: In a production app, you'd track individual connection objects
-				' For this simple script, we use msg.getSocketID to identify the source.
-
-				' We need to find which socket triggered the message
-				' For simplicity, we assume the last accepted connection:
+				' Activity on an open connection
+				connection = connections[Stri(socketID)]
 				closed = False
-				if newConn <> invalid and socketID = newConn.getID()
-					receivedByteCount = newConn.receive(buffer, 0, bufferSize)
+				if connection.isReadable()
+					receivedByteCount = connection.receive(buffer, 0, bufferSize)
 					if receivedByteCount > 0
 						' print ByteArrayToHex(buffer)
 						fcastPacket = protocol.DecodeBytes(buffer)
@@ -79,11 +78,11 @@ sub listenToTcp()
 					else if receivedByteCount = 0 ' client closed
 						closed = True
 					end if
-					if closed or not newConn.eOK()
-						' print "closing connection " changedID
-						newConn.close()
-						' newConn.delete(Stri(changedID))
-					end if
+				end if
+				if closed or not connection.eOK()
+					print "closing connection " socketID
+					connection.close()
+					connections.delete(Stri(socketID))
 				end if
 			end if
 		else 
