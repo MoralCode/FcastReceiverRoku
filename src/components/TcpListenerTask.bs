@@ -1,5 +1,5 @@
 import "pkg:/source/protocol.bs"
-
+import "pkg:/source/protocol/v2.bs"
 sub init()
 	m.top.functionName = "listenToTcp"
 end sub
@@ -63,9 +63,7 @@ sub listenToTcp()
 
 					sendbuffer = CreateObject("roByteArray")
 					sendbuffer[512] = 0
-					versionPacket = new protocol.FCastMessage(protocol.Opcode.version, {
-						"version": 2
-					})
+					versionPacket = new protocol.FCastMessage(protocol.Opcode.version, protocol.v2.VersionMessage())
 					versionPacket.toBytes(sendbuffer, 512)
 					sl = sendbuffer.Slice(4)
 					print `Sending version: ${versionPacket.payload}`
