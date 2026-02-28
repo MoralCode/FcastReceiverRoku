@@ -131,7 +131,7 @@ namespace protocol
 		' opcode is the 5th byte
 		opcode = bytes[4]
 		#if debug
-		print "Detected Packet Length: "; packetLength
+		print `Detected Packet Length: ${packetLength}`
 		#end if
 		' 2. Validation
 		actualDataSize = bytes.count() - headerLength
@@ -141,7 +141,7 @@ namespace protocol
 		if actualDataSize < packetLength then
 			print "ERROR: Incomplete packet."
 			#if debug
-			print "Need "; packetLength ; " but got "; actualDataSize
+			print `Need ${packetLength} but got ${actualDataSize}`
 			#end if
 			return invalid
 		else if actualDataSize > 0 then

@@ -41,7 +41,7 @@ sub listenToTcp()
 	tcp.notifyReadable(true)
 	tcp.listen(5)
 	#if logging
-	print "TCP Listener started on port: "; m.top.port
+	print `TCP Listener started on port: ${m.top.port}`
 	#end if
 	while true
 		' Wait for an event (connection request or data)
@@ -68,7 +68,7 @@ sub listenToTcp()
 					})
 					versionPacket.toBytes(sendbuffer, 512)
 					sl = sendbuffer.Slice(4)
-					print "Sending version: '"; versionPacket.payload; "'"
+					print `Sending version: ${versionPacket.payload}`
 
 					newConn.send(sendbuffer, 0, versionPacket.byteLength())
 				end if
@@ -91,7 +91,7 @@ sub listenToTcp()
 					end if
 				end if
 				if closed or not connection.eOK()
-					print "closing connection " socketID
+					print `closing connection ${socketID}`
 					connection.close()
 					connections.delete(Stri(socketID))
 				end if
