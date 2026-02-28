@@ -11,14 +11,17 @@
 			"request": "launch",
 			"host": "${env:ROKU_HOST}",
 			"password": "${env:ROKU_PASSWORD}",
-			"rootDir": "${workspaceFolder}/out",
+			// "rootDir": "${workspaceFolder}/out",
 			"envFile": "${workspaceFolder}/.vscode/.env",
-			"injectRdbOnDeviceComponent": true,
-			"bsConst": {
-				"debug": true,
-				"logging": false
-			},
-			"preLaunchTask": "npm: compile",
+			// "rootDir": "${workspaceFolder}/dist",
+			// "injectRdbOnDeviceComponent": true,
+			// "bsConst": {
+			// 	"debug": true,
+			// 	"logging": false
+			// },
+			// "preLaunchTask": "npm: compile",
+			// "preLaunchTask": "npm: compile shell"
+			// "enableDebugProtocol": false
 		}
 	]
 }
