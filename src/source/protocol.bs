@@ -131,7 +131,7 @@ namespace protocol
 		' opcode is the 5th byte
 		opcode = bytes[4]
 		#if debug
-		print `Detected Packet Length: ${packetLength}`
+		print `Detected Packet Length: ${packetLength} Opcode: ${opcode}`
 		#end if
 		' 2. Validation
 		actualDataSize = bytes.count() - headerLength
