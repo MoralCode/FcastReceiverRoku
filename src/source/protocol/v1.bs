@@ -1,0 +1,28 @@
+
+namespace protocol.v1
+
+	class PlayMessage
+		container as string 'The MIME type (video/mp4)
+		optional url as string 'The URL to load (optional)
+		optional content as string 'The content to load (i.e. a DASH manifest, optional)
+		optional starttime as integer' The time to start playing in seconds
+	end class
+
+	class SeekMessage
+		time as integer 'The time to seek to in seconds
+	end class
+
+	class PlaybackUpdateMessage
+		time as integer 'The current time playing in seconds
+		state as protocol.PlaybackState 'The playback state
+	end class
+
+	class VolumeUpdateMessage
+		volume as float 'The current volume (0-1)
+	end class
+
+	class SetVolumeMessage
+		volume as float 'The desired volume (0-1)
+	end class
+
+end namespace
