@@ -1,5 +1,7 @@
 namespace protocol
 
+	const headerLength = 5
+
 	enum Opcode
 		play = 1
 		pause
@@ -125,8 +127,6 @@ namespace protocol
 		' 1. Extract Length (First 4 bytes, Little Endian)
 		' Index 0 is the lowest value, Index 3 is the highest value
 		' Formula: byte0 + (byte1 << 8) + (byte2 << 16) + (byte3 << 24)
-		headerLength = 5
-
 		packetLength = bytes[0] + (bytes[1] << 8) + (bytes[2] << 16) + (bytes[3] << 24)
 		' opcode is the 5th byte
 		opcode = bytes[4]
