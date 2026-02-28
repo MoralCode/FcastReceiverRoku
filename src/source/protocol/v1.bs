@@ -12,23 +12,46 @@ namespace protocol.v1
 		optional url as string 'The URL to load (optional)
 		optional content as string 'The content to load (i.e. a DASH manifest, optional)
 		optional starttime as integer' The time to start playing in seconds
+
+		sub new(container as string, url as string, content as string, starttime as integer)
+			m.container = container
+			m.url = url
+			m.content = content
+			m.starttime = starttime
+		end sub
 	end class
 
 	class SeekMessage
 		time as integer 'The time to seek to in seconds
+		sub new(time as float)
+			m.time = time
+		end sub
 	end class
 
 	class PlaybackUpdateMessage
 		time as integer 'The current time playing in seconds
 		state as protocol.v1.PlaybackState 'The playback state
+
+		sub new(time as integer, state as protocol.v1.PlaybackState)
+			m.time = time
+			m.state = state
+		end sub
 	end class
 
 	class VolumeUpdateMessage
 		volume as float 'The current volume (0-1)
+
+		sub new(volume as float)
+			m.volume = volume
+		end sub
 	end class
 
 	class SetVolumeMessage
 		volume as float 'The desired volume (0-1)
+
+		sub new(volume as float)
+			m.volume = volume
+		end sub
 	end class
 
 end namespace
