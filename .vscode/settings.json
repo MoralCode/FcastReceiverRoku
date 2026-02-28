@@ -5,11 +5,8 @@
 	],
 	"brightscript.bsdk": "./node_modules/brighterscript",
 	"brightscript.debug.outDir": "/", // something is weird here
-	"brightscript.output.clearConsoleOnChannelStart": false,
-	"brightscript.output.clearOnLaunch": false,
 	"brightscript.output.hyperlinkFormat": "Full",
 	"brightscript.deviceDiscovery.includeNonDeveloperDevices": true,
-	"brightscript.debug.emitChannelPublishedEvent": false,
 	// "brightscript.debug.envFile": "",
 	"brightscript.debug.stagingDir": "${workspaceFolder}/dist/staging",
 	"brightscript.debug.sourceDirs": [
