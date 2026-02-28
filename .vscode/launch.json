@@ -19,9 +19,7 @@
 			// 	"debug": true,
 			// 	"logging": false
 			// },
-			// "preLaunchTask": "npm: compile",
-			// "preLaunchTask": "npm: compile shell"
-			// "enableDebugProtocol": false
+			"preLaunchTask": "npm: build"
 		}
 	]
 }
