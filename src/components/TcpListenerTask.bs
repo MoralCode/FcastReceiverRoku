@@ -60,6 +60,17 @@ sub listenToTcp()
 					newConn.setMessagePort(port)
 					newConn.notifyReadable(true)
 					connections[Stri(newConn.getID())] = newConn
+
+					sendbuffer = CreateObject("roByteArray")
+					sendbuffer[512] = 0
+					versionPacket = new protocol.FCastMessage(protocol.Opcode.version, {
+						"version": 2
+					})
+					versionPacket.toBytes(sendbuffer, 512)
+					sl = sendbuffer.Slice(4)
+					print "Sending version: '"; versionPacket.payload; "'"
+
+					newConn.send(sendbuffer, 0, versionPacket.byteLength())
 				end if
 			else
 				' Activity on an open connection

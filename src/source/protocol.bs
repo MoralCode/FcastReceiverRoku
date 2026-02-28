@@ -67,6 +67,14 @@ namespace protocol
 			' return buffer
 
 		end sub
+
+		sub contentLength() as integer
+			return  Len(FormatJson(m.payload))
+		end sub
+
+		sub byteLength() as integer
+			return 5 + Len(FormatJson(m.payload))
+		end sub
 	end class
 
 	class PlayMessage
