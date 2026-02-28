@@ -11,10 +11,10 @@
 		},
 		{
 			"type": "npm",
-			"script": "build",
+			"script": "build:dev",
 			"group": "build",
 			"problemMatcher": [],
-			"label": "npm: build",
+			"label": "npm: build dev",
 			"detail": "transpile bs to bsc"
 		}
 	]
