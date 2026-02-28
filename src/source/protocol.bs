@@ -82,6 +82,8 @@ namespace protocol
 		optional url as string 'The URL to load (optional)
 		optional content as string 'The content to load (i.e. a DASH manifest, optional)
 		optional starttime as integer' The time to start playing in seconds
+		optional speed as float 'The factor to multiply playback speed by (defaults to 1.0)
+		optional headers as object 'HTTP request headers to add to the play request Map<string, string>
 	end class
 
 	class SeekMessage
@@ -91,16 +93,31 @@ namespace protocol
 	class PlaybackUpdateMessage
 		time as integer 'The current time playing in seconds
 		state as protocol.PlaybackState 'The playback state
+		generationTime as integer 'The time the packet was generated (unix time milliseconds)
+		duration as integer 'The duration in seconds
+		optional speed as float ' The playback speed factor
 	end class
 
 	class VolumeUpdateMessage
 		volume as float 'The current volume (0-1)
+		generationTime as integer 'The time the packet was generated (unix time milliseconds)
 	end class
 
 	class SetVolumeMessage
 		volume as float 'The desired volume (0-1)
 	end class
 
+	class SetSpeedMessage
+		speed as float 'The factor to multiply playback speed by.
+	end class
+
+	class PlaybackErrorMessage
+		message as string
+	end class
+
+	class VersionMessage
+		version as integer
+	end class
 
 	function DecodeBytes(bytes as object) as protocol.FCastMessage
 		if bytes = invalid or bytes.count() < 5 then return invalid
