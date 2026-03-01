@@ -54,10 +54,12 @@ namespace protocol
 			buffer[2] = (packetLength >> 16) and &HFF
 			buffer[3] = (packetLength >> 24) and &HFF
 			buffer[4] = m.opcode
-			for x = 0 to packetLength - 1 - 1
-				buffer[5 + x] = payloadBuffer[x]
-			end for
-			buffer[5+packetLength - 1] = 0
+			if payloadDataArray.Count() >= 1 then
+				for x = 0 to packetLength - 1 - 1
+					buffer[5 + x] = payloadBuffer[x]
+				end for
+				buffer[5+packetLength - 1] = 0
+			end if
 
 			' return buffer
 
