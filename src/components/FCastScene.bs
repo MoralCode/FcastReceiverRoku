@@ -2,7 +2,7 @@ import "pkg:/source/utils/NetworkUtils.bs"
 
 sub init()
 
-	m.player = m.top.findNode("VideoPlayer")
+	m.player = m.top.findNode("videoPlayback")
 	m.player.visible = false
 
 	m.busyspinner = m.top.findNode("Spinner")
@@ -48,13 +48,18 @@ sub onPayloadReceived()
 			print "Play request for: "; payload.url
 			# end if
 			m.player.visible = true
-			m.top.visible = false
-			m.player.castContent = {
+
+			' videoPlayer = m.top.findNode("videoElement")
+			' Set content and start playback
+			m.player.content = buildContentNodeForVideo({
 				url: payload.url,
 				mime: payload.container,
 				time: payload.time
-			}
-			m.player.setFocus(true)
+			})
+			m.player.visible = true
+			m.player.control = "play"
+
+			m.player.setFocus(true)			
 		end if
 	end if
 end sub
@@ -71,4 +76,91 @@ sub onVisibleChange()
 	else
 		m.tcpTask.control = "STOP"
 	end if
+end sub
+
+function onKeyEvent(key as string, press as boolean) as boolean
+	#if logging
+		print "in FCastScene onKeyEvent ";key;" "; press
+	#end if
+
+	videoPlayer = m.player
+
+	if press
+	    if key = "back"
+	        if videoPlayer.visible = true then
+	            videoPlayer.control = "stop"
+	            videoPlayer.visible = false
+	            m.top.setFocus(true)
+	            return true ' We handled the event
+	        end if
+	    end if
+	end if
+end function
+
+
+
+
+' Maps the mimetype from standard MIME strings to the strings roku expects
+sub mapMimeType(mime as string) as string
+	' see StreamFormat section of https://developer.roku.com/en-ca/docs/developer-program/getting-started/architecture/content-metadata.md#example-of-configuring-a-dash-stream-with-widevine-drm
+
+	' application/octet-stream can be for .mov, .mkv, .hls
+	mimeMap = {
+		"video/mp4": "mp4"
+		"video/x-m4v": "mp4"' (mp4 will also accept .m4v files)
+		"video/quicktime": "mp4" '.mov  (mp4 will also accept .mov files)
+		"video/x-quicktime": "mp4" '.mov  (mp4 will also accept .mov files)
+
+		"application/x-mpegURL": "hls"
+
+		"application/dash+xml": "dash"
+
+		"video/x-matroska": "mkv"
+		"audio/x-matroska": "mkv"
+		"audio/matroska": "mkv"
+		"video/matroska": "mkv"
+		"application/x-matroska": "mkv"
+
+		"audio/mpeg": "mp3"
+
+		' these seem too likely to not be supported
+		' "image/mov": "mp4" '.mov  (mp4 will also accept .mov files)
+		' "image/x-quicktime": "mp4" '.mov  (mp4 will also accept .mov files)
+		' "video/matroska-3d": "mkv"
+	}
+	convertedType = mimeMap[mime]
+	if convertedType <> invalid then
+		return convertedType
+	else
+		return ""
+	end if
+end sub
+
+
+' Create a content node suitable for passing into a video element
+sub buildContentNodeForVideo(castContent as object) as object
+	' Create the content node required by the Video player
+	videoContent = CreateObject("roSGNode", "ContentNode")
+	mimetype = mapMimeType(castContent.mime)
+	if mimetype = "" then
+		print "Invalid Mime type provided: " + castContent.mime + " Could not map to a roku streamformat"
+		return invalid
+	end if
+
+	if castContent.url <> invalid then
+		videoContent.url = castContent.url
+	else
+		#if debug
+			print "cast content provided an invalid URL field"
+			print castContent
+		#end if
+	end if
+
+
+	videoContent.StreamFormat = mimetype
+
+	' if castContent.start <> invalid then
+	' 	videoContent.PlayStart=
+	' endif
+	return videoContent
 end sub

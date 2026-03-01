@@ -4,6 +4,12 @@
 
 	<children>
 		<Rectangle id="Background" width="1280" height="720" color="0x000000FF" />
+		<Player
+			id="videoPlayback"
+			width="1280"
+			height="720"
+		/>
+		
 
 		<Group id="BrandSection" translation="[150, 250]">
 			<Poster id="Logo" uri="pkg:/images/logo.png" width="172" height="100" />
@@ -75,7 +81,6 @@
 				color="0xAAAAAAFF" />
 			<Label text="46899 (TCP)" translation="[0, 540]" width="450" horizAlign="center" />
 		</Group>
-		<VideoPlayer id="VideoPlayer" />
 	</children>
 
 </component>
