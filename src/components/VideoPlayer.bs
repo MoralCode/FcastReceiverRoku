@@ -16,10 +16,31 @@ sub onStateChange()
 end sub
 
 sub mapMimeType(mime as string) as string
+	' see StreamFormat section of https://developer.roku.com/en-ca/docs/developer-program/getting-started/architecture/content-metadata.md#example-of-configuring-a-dash-stream-with-widevine-drm
+
+	' application/octet-stream can be for .mov, .mkv, .hls
 	mimeMap = {
-		"video/mp4":"mp4"
+		"video/mp4": "mp4"
+		"video/x-m4v": "mp4"' (mp4 will also accept .m4v files)
+		"video/quicktime": "mp4" '.mov  (mp4 will also accept .mov files)
+		"video/x-quicktime": "mp4" '.mov  (mp4 will also accept .mov files)
+		
 		"application/x-mpegURL":"hls"
+
+		"application/dash+xml": "dash"
+
 		"video/x-matroska": "mkv"
+		"audio/x-matroska": "mkv"
+		"audio/matroska": "mkv"
+		"video/matroska": "mkv"
+		"application/x-matroska": "mkv"
+
+		"audio/mpeg": "mp3"
+
+		' these seem too likely to not be supported
+		' "image/mov": "mp4" '.mov  (mp4 will also accept .mov files)
+		' "image/x-quicktime": "mp4" '.mov  (mp4 will also accept .mov files)
+		' "video/matroska-3d": "mkv"
 	}
 	convertedType = mimeMap[mime]
 	if convertedType <> invalid then
