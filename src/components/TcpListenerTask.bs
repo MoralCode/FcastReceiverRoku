@@ -77,7 +77,10 @@ sub listenToTcp()
 				if connection.isReadable()
 					receivedByteCount = connection.receive(buffer, 0, bufferSize)
 					if receivedByteCount > 0
-						' print ByteArrayToHex(buffer)
+						#if debug
+							print `received packet: ${buffer.Slice(5, receivedByteCount).ToAsciiString()}`
+							print `full nonnull buffer contents: ${buffer.Slice(5).ToAsciiString()}`
+						#end if 
 						fcastPacket = protocol.DecodeBytes(buffer.Slice(0, receivedByteCount))
 						if fcastPacket <> invalid then
 							m.top.payload = fcastPacket
