@@ -5,6 +5,8 @@ sub init()
 	m.player = m.top.findNode("videoPlayback")
 	m.player.visible = false
 
+	m.homeUi = m.top.findNode("HomeUI")
+
 	m.busyspinner = m.top.findNode("Spinner")
 	m.busyspinner.poster.observeField("loadStatus", "showspinner")
 
@@ -48,6 +50,7 @@ sub onPayloadReceived()
 			print "Play request for: "; payload.url
 			# end if
 			m.player.visible = true
+			m.homeUi.visible = false
 
 			' videoPlayer = m.top.findNode("videoElement")
 			' Set content and start playback
@@ -90,6 +93,7 @@ function onKeyEvent(key as string, press as boolean) as boolean
 	        if videoPlayer.visible = true then
 	            videoPlayer.control = "stop"
 	            videoPlayer.visible = false
+				m.homeUi.visible = true
 	            m.top.setFocus(true)
 	            return true ' We handled the event
 	        end if
