@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="LoadingProgressBar" extends="Group">
+    <interface>
+        <field id="width" type="float" alias="background.width" onChange="OnWidthChanged" />
+        <field id="height" type="float" alias="background.height,progress.height" />
+        <field id="backgroundColor" type="string" alias="background.color" />
+        <field id="progressColor" type="string" alias="progress.color" />
+    </interface>
+
+    <script type="text/brightscript" uri="LoadingProgressBar.brs" />
+
+    <children>
+        <Rectangle
+            id="background"
+            color="0xFFFFFF"
+            width="300"
+            height="10"
+        />
+        <Rectangle
+            id="progress"
+            color="0xFF00001f"
+            width="0"
+            height="10"
+        />
+
+        <Animation
+            id="loadingAnimation"
+            repeat="true"
+            easeFunction="inOutQuintic"
+            duration="1"
+        >
+            <FloatFieldInterpolator
+                id="loadingInterpolator"
+                key="[0.0, 1.0]"
+                fieldToInterp="progress.width"
+            />
+        </Animation>
+    </children>
+</component>

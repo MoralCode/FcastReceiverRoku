@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<component name="PlaybackDurationBar" extends="Group">
+    <interface>
+        <!-- preffered width of duration bar -->
+        <field id="width" type="float" alias="background.width" onChange="UpdateProgress" />
+        <!-- preffered height of duration bar -->
+        <field id="height" type="float" onChange="OnHeightChanged" />
+        <!-- preffered background color of duration bar -->
+        <field id="backgroundColor" type="color" alias="background.color" />
+        <!-- preffered color of progress on duration bar -->
+        <field id="progressColor" type="color" alias="progress.color" />
+        <!-- current playback position -->
+        <field id="length" type="int" onChange="LengthChanged" />
+        <!-- stored bookmark playback position -->
+        <field id="progressPosition" type="int" onChange="UpdateProgress" />    
+        <!-- for scrubber visualization --> 
+        <field id="needScrubber" type="boolean" value="false" alias="scrubber.visible" />     
+        <field id="adPods" type="array"  onChange="UpdateAdRange"  alwaysNotify="true" />     
+    </interface> 
+
+    <script type="text/brightscript" uri= "PlaybackDurationBar.brs" />
+
+    <children>
+        <Rectangle
+            id="background"
+            visible="true"
+            translation="[0,0]"
+            color="0xFFFFFF"
+            width="300"
+            height="10"
+        />
+        <Rectangle
+            id="progress"
+            visible="true"
+            translation="[0,0]"
+            color="0xFF00001f"
+            width="0"
+            height="10"
+        />
+        <Group
+            id="ad"
+            visible="true"
+            translation="[0,0]"
+        />
+        <LayoutGroup
+            id="scrubber"
+            vertAlignment="center"
+        >
+            <Poster
+                id="scrubberPoster"
+                loadwidth="20"
+                loadheight="20"
+                uri="pkg:/images/scrubber.png"
+            />
+        </LayoutGroup>
+    </children>
+</component>

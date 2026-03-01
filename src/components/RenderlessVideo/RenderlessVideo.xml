@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="RenderlessVideo" extends="Video">
+
+    <interface>
+        <!-- WRIITE ONLY -->
+        <!-- Set delta for seeking when user presses left/right -->
+        <field id="seekdelta" type="integer" value="10" />
+
+        <!-- READ ONLY -->
+        <!-- Position when user is currently watching or scrolling -->
+        <field id="progressPosition" type="integer" />
+
+        <!-- READ ONLY -->
+        <!-- Button action that is now performing -->
+        <!-- posssible values = ["", "right", "left", "fastforward", "rewind", "replay"] -->
+        <field id="activeButton" type="string" alwaysNotify="true" />
+
+        <!-- READ ONLY -->
+        <!-- Current FF/Rewind speed, possible values = [0, 2, 4, 8] -->
+        <field id="FFRewCount" type="integer" value="0" />
+    </interface>
+
+    <script type="text/brightscript" uri="RenderlessVideo.brs" />
+
+    <children>
+        <Timer
+            id="holdTimer"
+            repeat="true"
+            duration="0.5"
+        />
+
+        <Timer
+            id="holdRewind"
+            repeat="true"
+            duration="0.5"
+        />
+    </children>
+</component>
