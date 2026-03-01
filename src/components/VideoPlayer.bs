@@ -46,7 +46,7 @@ sub mapMimeType(mime as string) as string
 	if convertedType <> invalid then
 		return convertedType
 	else
-		return invalid
+		return ""
 	end if
 end sub
 
@@ -54,8 +54,9 @@ sub buildContentNodeForVideo(castContent as object) as object
 	' Create the content node required by the Video player
 	videoContent = CreateObject("roSGNode", "ContentNode")
 	mimetype = mapMimeType(castContent.mime)
-	if mapMimeType = invalid then
+	if mimetype = "" then
 		print "Invalid Mime type provided: " + castContent.mime + " Could not map to a roku streamformat"
+		return invalid
 	end if
 
 	if mimetype = "mp4" then
