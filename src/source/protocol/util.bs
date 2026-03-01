@@ -28,17 +28,16 @@ namespace protocol
 
 		sub new(opcode as protocol.Opcode, payload as object)
 			m.opcode = opcode
-			m.payload = payload
+			m.payload = protocol.CleanPayload(payload)
 		end sub
 		
 		opcode as protocol.Opcode
 		payload as object
 
 		sub toBytes(buffer as object, bufferSize as integer)
-			payloadData = invalid
-			if m.payload <> invalid then
-				payloadData = FormatJson(m.payload)
-			end if
+			payloadDataArray = protocol.CleanPayload(m.payload)
+
+			payloadData = FormatJson(payloadDataArray)
 
 			payloadBuffer = CreateObject("roByteArray")
 			payloadBuffer[2048] = 0
@@ -65,13 +64,24 @@ namespace protocol
 		end sub
 
 		sub contentLength() as integer
-			return  Len(FormatJson(m.payload))
+			return  Len(CleanPayload(m.payload))
 		end sub
 
 		sub byteLength() as integer
-			return 5 + Len(FormatJson(m.payload))
+			return 5 + Len(CleanPayload(m.payload))
 		end sub
 	end class
+
+	function CleanPayload(incomingPayload as object) as string
+		payloadDataArray = {}
+		' copy payload array from object without copying methods from that object
+		for each key in incomingPayload
+			if type(incomingPayload[key]) <> "roFunction" then
+				payloadDataArray[key] = incomingPayload[key]
+			end if
+		end for
+		return FormatJson(payloadDataArray)
+	end function
 
 	function DecodeBytes(bytes as object) as protocol.FCastMessage
 		if bytes = invalid or bytes.count() < 5 then return invalid
