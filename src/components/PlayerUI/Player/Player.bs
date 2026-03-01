@@ -115,9 +115,14 @@ sub ShowTransportControls()
 end sub
 
 function OnKeyEvent(key as String, press as Boolean) as Boolean
+    #if logging
+        print "in Player onKeyEvent ";key;" "; press
+    #end if
     if press and key = "back" and m.transportControls.opacity > 0
         HideTransportControls()
         return true
     end if
     return false
+
+    ' TODO: maybe back press should trigger a dialog to stop casting and go back to the main screen?
 end function
