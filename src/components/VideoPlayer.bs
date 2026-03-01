@@ -59,7 +59,7 @@ sub buildContentNodeForVideo(castContent as object) as object
 		return invalid
 	end if
 
-	if mimetype = "mp4" then
+	if castContent.url <> invalid then
 		videoContent.url = castContent.url
 	end if
 
