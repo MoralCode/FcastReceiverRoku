@@ -40,10 +40,10 @@ sub init()
 end sub
 
 sub onPayloadReceived()
-	opcodedata = m.tcpTask.payload
-	if opcodedata <> invalid
-		opcode = opcodedata.opcode
-		payload = opcodedata.payload
+	commanddata = m.tcpTask.payload
+	if commanddata <> invalid
+		opcode = commanddata.opcode
+		payload = commanddata.payload
 
 		if opcode = 1
 			# if logging
