@@ -67,15 +67,15 @@ namespace protocol
 		end sub
 
 		sub contentLength() as integer
-			return  Len(CleanPayload(m.payload))
+			return  Len(FormatJson(CleanPayload(m.payload)))
 		end sub
 
 		sub byteLength() as integer
-			return 5 + Len(CleanPayload(m.payload))
+			return 5 + Len(FormatJson(CleanPayload(m.payload)))
 		end sub
 	end class
 
-	function CleanPayload(incomingPayload as object) as string
+	function CleanPayload(incomingPayload as object) as object
 		payloadDataArray = {}
 		' copy payload array from object without copying methods from that object
 		for each key in incomingPayload
@@ -83,7 +83,7 @@ namespace protocol
 				payloadDataArray[key] = incomingPayload[key]
 			end if
 		end for
-		return FormatJson(payloadDataArray)
+		return payloadDataArray
 	end function
 
 	function DecodeBytes(bytes as object) as protocol.FCastMessage
