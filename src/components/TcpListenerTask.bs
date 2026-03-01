@@ -89,7 +89,9 @@ sub listenToTcp()
 					end if
 				end if
 				if closed or not connection.eOK()
-					print `closing connection ${socketID}`
+					#if logging
+						print `closing connection ${socketID}`
+					#end if
 					connection.close()
 					connections.delete(Stri(socketID))
 				end if

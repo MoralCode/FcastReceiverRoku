@@ -61,6 +61,11 @@ sub buildContentNodeForVideo(castContent as object) as object
 
 	if castContent.url <> invalid then
 		videoContent.url = castContent.url
+	else
+		#if debug
+			print "cast content provided an invalid URL field"
+			print castContent 
+		#end if
 	end if
 
 	videoContent.StreamFormat = mimetype
