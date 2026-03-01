@@ -65,8 +65,8 @@ sub listenToTcp()
 					sendbuffer[512] = 0
 					versionPacket = new protocol.FCastMessage(protocol.Opcode.version, protocol.v2.VersionMessage())
 					versionPacket.toBytes(sendbuffer, 512)
-					sl = sendbuffer.Slice(4)
-					print `Sending version: ${versionPacket.payload}`
+					sl = sendbuffer.Slice(5)
+					print `Sending version: ${sl.ToAsciiString()}`
 
 					newConn.send(sendbuffer, 0, versionPacket.byteLength())
 				end if
