@@ -24,4 +24,4 @@ network_access=1
 
 ui_resolutions=HD
 
-bs_const=debug=false;logging=false
+bs_const=debug=true;logging=true
