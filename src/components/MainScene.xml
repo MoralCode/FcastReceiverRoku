@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <component name="MainScene" extends="Scene">
-    <script type="text/brightscript" uri="MainScene.brs" />
+    <script type="text/brightscript" uri="MainScene.bs" />
 
     <children>
         <Player

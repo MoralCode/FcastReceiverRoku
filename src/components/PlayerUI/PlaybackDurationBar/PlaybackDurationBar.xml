@@ -19,7 +19,7 @@
         <field id="adPods" type="array"  onChange="UpdateAdRange"  alwaysNotify="true" />     
     </interface> 
 
-    <script type="text/brightscript" uri= "PlaybackDurationBar.brs" />
+    <script type="text/brightscript" uri= "PlaybackDurationBar.bs" />
 
     <children>
         <Rectangle

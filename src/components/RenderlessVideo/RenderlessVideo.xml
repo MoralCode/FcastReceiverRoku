@@ -20,7 +20,7 @@
         <field id="FFRewCount" type="integer" value="0" />
     </interface>
 
-    <script type="text/brightscript" uri="RenderlessVideo.brs" />
+    <script type="text/brightscript" uri="RenderlessVideo.bs" />
 
     <children>
         <Timer

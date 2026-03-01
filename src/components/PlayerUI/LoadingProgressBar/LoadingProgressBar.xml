@@ -7,7 +7,7 @@
         <field id="progressColor" type="string" alias="progress.color" />
     </interface>
 
-    <script type="text/brightscript" uri="LoadingProgressBar.brs" />
+    <script type="text/brightscript" uri="LoadingProgressBar.bs" />
 
     <children>
         <Rectangle

@@ -8,7 +8,7 @@
         <field id="control" type="string" alias="video.control" />
     </interface>
 
-    <script type="text/brightscript" uri="Player.brs"/>
+    <script type="text/brightscript" uri="Player.bs"/>
     <script type="text/brightscript" uri="pkg:/source/utils/utils.bs" />
 
     <children>
