@@ -65,3 +65,14 @@ printf "\x73\x00\x00\x00\x01{\"container\":\"video/mp4\",\"url\":\"http://common
 
 
 Using an app with support, such as Grayjay
+
+
+## Credits, Licensing, and Disclaimers
+
+Thanks to FUTO for making the open source FCast protocol!
+
+Thanks to @vadymbl for writing the [video player UI](https://github.com/vadymbl/roku-custom-video)(BSD-0 Licensed) and sample channel that was used as the basis for this project's own player UI.
+
+Thanks to the Roku Developers for the documentation of the brightscript language and hello world sample code this channel used to get started.
+
+Minimal or no AI was used in the main branch of this channel (attempts were made and they were not good enough to continue trying).

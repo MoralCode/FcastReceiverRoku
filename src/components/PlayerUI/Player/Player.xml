@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="Player" extends="Group" >
+    <!-- xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd" -->
+
+    <interface>
+        <field id="content" type="node" alias="video.content" />
+        <field id="contentIsPlaylist" type="bool" alias="video.contentIsPlaylist" />
+        <field id="control" type="string" alias="video.control" />
+    </interface>
+
+    <script type="text/brightscript" uri="Player.bs"/>
+    <script type="text/brightscript" uri="pkg:/source/utils/utils.bs" />
+
+    <children>
+        <!-- video node wrapper -->
+        <!-- NOTE: should be first child to not overlay other UI components -->
+        <RenderlessVideo
+            id="video"
+            width="1280"
+            height="720"
+        />
+
+        <!-- Buffering facade -->
+        <Group
+            id="loadingGroup"
+        >
+            <Rectangle
+                id="loadingBackground"
+                width="1280"
+                height="720"
+                color="#2e2a3b"
+            />
+            <LoadingProgressBar
+                backgroundColor="#FFFFFF"
+                progressColor="#FF0000"
+                height="4"
+                width="250"
+                translation="[515, 400]"
+            />
+        </Group>
+
+        <!-- UI of the player -->
+        <Group
+            id="transportControls"
+            translation="[0,1280]"
+            opacity="0"
+        >
+            <Poster
+                id="controlsGradient"
+                width="1280"
+                height="580"
+                translation="[0,-480]"
+                uri="pkg:/images/bottom_gradient.png"
+            />
+            <LayoutGroup
+                horizAlignment="center"
+                translation="[640,-340]"
+            >
+                <Poster
+                    id="action"
+                    width="[155]"
+                    height="[60]"
+                />
+            </LayoutGroup>
+            <LayoutGroup
+                id="controlsLayout"
+                vertAlignment="bottom"
+                translation="[63,0]"
+                itemSpacings="[24,20]"
+            >
+                <Label
+                    id="title"
+                    width="700"
+                    wrap="false"
+                    text="Your Cool Video Title"
+                    font="font:MediumBoldSystemFont"
+                    color="#ffffff"
+                />
+                <PlaybackDurationBar
+                    id="progressBar"
+                    backgroundColor="#FFFFFFDD"
+                    progressColor="#FF0000"
+                    height="4"
+                    width="1154"
+                    needScrubber="false"
+                />
+                <LayoutGroup
+                    layoutDirection="horiz"
+                    vertAlignment="center"
+                    itemSpacings="[25]"
+                >
+                    <Poster
+                        id="stateIcon"
+                        width="20"
+                        height="20"
+                        uri="pkg:/images/player/pause.png"
+                    />
+                    <Label
+                        id="timeLabel"
+                        width="300"
+                        height="20"
+                        wrap="false"
+                        font="font:SmallSystemFont"
+                        color="#ffffff"
+                    />
+                </LayoutGroup>
+            </LayoutGroup>
+        </Group>
+
+        <!-- timer to hide ui after user idle -->
+        <Timer
+            id="transportControlsTimer"
+            repeat="false"
+            duration="5"
+        />
+
+        <!-- trasnport controls animation -->
+        <ParallelAnimation
+            id="showTCAnimation" 
+            repeat="false"
+        >
+            <Animation
+                id="transportControlsAnimation"
+                duration="0.6"
+                repeat="false"
+                optional="true"
+                easefunction="linear">
+                <Vector2DFieldInterpolator
+                    id="transportControlsInterpolator"
+                    key="[0.0, 1.0]"
+                    fieldToInterp="transportControls.translation"
+                />
+            </Animation>
+            <Animation
+                id="gradientAnimation"
+                duration="0.4"
+                repeat="false"
+                easeFunction="linear">
+                <FloatFieldInterpolator
+                    id="gradientInterpolator"
+                    key="[0.0, 1.0]"
+                    fieldToInterp="transportControls.opacity"
+                />
+            </Animation>
+        </ParallelAnimation>
+    </children>
+</component>

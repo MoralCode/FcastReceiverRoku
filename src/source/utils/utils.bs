@@ -10,3 +10,34 @@ namespace utils
 		return hexString
 	end function
 end namespace
+
+
+function GetDurationStringStandard(totalSeconds = 0 as integer, pad = True as boolean, showEmptyHours = false as boolean) as string
+	remaining = totalSeconds
+	hours = Int(remaining / 3600).ToStr()
+	remaining = remaining mod 3600
+	minutes = Int(remaining / 60).ToStr()
+	remaining = remaining mod 60
+	seconds = remaining.ToStr()
+
+	if hours <> "0" or showEmptyHours then
+		return IIf(pad, PadLeft(hours, "0", 2), hours) + ":" + PadLeft(minutes, "0", 2) + ":" + PadLeft(seconds, "0", 2)
+	else
+		return IIf(pad, PadLeft(minutes, "0", 2), minutes) + ":" + PadLeft(seconds, "0", 2)
+	end if
+end function
+
+function IIf(condition as boolean, result1 as dynamic, result2 as dynamic) as dynamic
+	if condition then
+		return result1
+	else
+		return result2
+	end if
+end function
+
+function PadLeft(value as string, padChar as string, totalLength as integer) as string
+	while value.Len() < totalLength
+		value = padChar + value
+	end while
+	return value
+end function
