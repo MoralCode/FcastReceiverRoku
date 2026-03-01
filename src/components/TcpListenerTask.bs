@@ -78,7 +78,7 @@ sub listenToTcp()
 					receivedByteCount = connection.receive(buffer, 0, bufferSize)
 					if receivedByteCount > 0
 						' print ByteArrayToHex(buffer)
-						fcastPacket = protocol.DecodeBytes(buffer.Slice(0, receivedByteCount+1))
+						fcastPacket = protocol.DecodeBytes(buffer.Slice(0, receivedByteCount))
 						if fcastPacket <> invalid then
 							m.top.payload = fcastPacket
 

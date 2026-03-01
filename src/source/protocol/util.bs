@@ -87,7 +87,7 @@ namespace protocol
 	end function
 
 	function DecodeBytes(bytes as object) as protocol.FCastMessage
-		if bytes = invalid or bytes.count() < 5 then return invalid
+		if bytes = invalid or bytes.count() < headerLength then return invalid
 
 		' 1. Extract Length (First 4 bytes, Little Endian)
 		' Index 0 is the lowest value, Index 3 is the highest value
@@ -103,7 +103,7 @@ namespace protocol
 
 		data = invalid
 
-		if actualDataSize < packetLength then
+		if actualDataSize < packetLength - 1 then
 			print "ERROR: Incomplete packet."
 			#if debug
 			print `Need ${packetLength} but got ${actualDataSize}`
