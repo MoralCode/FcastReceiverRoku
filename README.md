@@ -40,3 +40,16 @@ ROKU_PASSWORD=<development password you set when enabling dev mode>
 ```
 
 The build and run and debug tooling within vscode works to allow you build and run (in debug mode) the roku channel on a real device.
+
+
+
+## Testing Options
+
+
+printf + netcat with big buck bunny url from google:
+```
+printf "\x73\x00\x00\x00\x01{\"container\":\"video/mp4\",\"url\":\"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4\"}" | nc IP_ADDRESS 46899
+```
+
+[FCast Sender terminal client](https://gitlab.futo.org/videostreaming/fcast/-/tree/master/senders/terminal?ref_type=heads) (rust):
+
