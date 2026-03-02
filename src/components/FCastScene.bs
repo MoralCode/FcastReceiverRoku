@@ -1,4 +1,5 @@
 import "pkg:/source/utils/NetworkUtils.bs"
+import "pkg:/source/protocol/util.bs"
 import "pkg:/source/utils/utils.bs"
 
 sub init()
@@ -46,7 +47,7 @@ sub onPayloadReceived()
 		opcode = commanddata.opcode
 		payload = commanddata.payload
 
-		if opcode = 1
+		if opcode = protocol.Opcode.play
 			# if logging
 			print "Play request for: "; payload.url
 			# end if
