@@ -28,7 +28,7 @@ namespace protocol
 
 		sub new(opcode as protocol.Opcode, payload as object)
 			m.opcode = opcode
-			m.payload = protocol.CleanPayload(payload)
+			m.payload = payload <> invalid ? protocol.CleanPayload(payload): invalid
 		end sub
 		
 		opcode as protocol.Opcode
@@ -78,11 +78,13 @@ namespace protocol
 	function CleanPayload(incomingPayload as object) as object
 		payloadDataArray = {}
 		' copy payload array from object without copying methods from that object
-		for each key in incomingPayload
-			if type(incomingPayload[key]) <> "roFunction" then
-				payloadDataArray[key] = incomingPayload[key]
-			end if
-		end for
+		if incomingPayload <> invalid then
+			for each key in incomingPayload
+				if type(incomingPayload[key]) <> "roFunction" then
+					payloadDataArray[key] = incomingPayload[key]
+				end if
+			end for
+		end if
 		return payloadDataArray
 	end function
 
