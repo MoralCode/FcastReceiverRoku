@@ -65,6 +65,12 @@ sub onPayloadReceived()
 			m.player.control = VideoControls.play
 
 			m.player.setFocus(true)
+		else if opcode = protocol.Opcode.pause
+			m.player.control = VideoControls.pause
+		else if opcode = protocol.Opcode.resume
+			m.player.control = VideoControls.resume
+		else if opcode = protocol.Opcode.stop
+			m.player.control = VideoControls.stop
 		end if
 	end if
 end sub
