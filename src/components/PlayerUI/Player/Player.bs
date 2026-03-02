@@ -73,13 +73,13 @@ sub OnVideoButtonPressed(event as Object)
     button = event.GetData()
     ShowTransportControls()
     m.transportControlsTimer.control = "stop"
-    if button = "right"
+    if button = RemoteButton.right
         m.action.uri = "pkg:/images/player/plus10.png"
-    else if button = "left"
+    else if button = RemoteButton.left
         m.action.uri = "pkg:/images/player/minus10.png"
-    else if button = "fastforward"
+    else if button = RemoteButton.fastforward
         m.action.uri = "pkg:/images/player/ff" + m.video.FFRewCount.ToStr() + ".png"
-    else if button = "rewind"
+    else if button = RemoteButton.rewind
         m.action.uri = "pkg:/images/player/rewind" + m.video.FFRewCount.ToStr() + ".png"
     else if button = ""
         m.action.uri = ""

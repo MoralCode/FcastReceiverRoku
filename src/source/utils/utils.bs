@@ -11,6 +11,20 @@ enum VideoControl
 	skipcontent = "skipcontent" ' Skip the currently - playing content and begin playing the next content in the playlist.if the content is not a playlist, or if the current content is the end of the playlist, this will end playback.
 end enum
 
+enum RemoteButton
+	up = "up"
+	down = "down"
+	left = "left"
+	right = "right"
+	OK = "OK"
+	back = "back"
+	replay = "replay"
+	play = "play"
+	rewind = "rewind"
+	fastforward = "fastforward"
+	options = "options"
+end enum
+
 namespace utils
 	function ByteArrayToHex(bytes as object) as string
 		hexString = ""
