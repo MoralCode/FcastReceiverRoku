@@ -69,14 +69,9 @@ sub listenToTcp()
 					newConn.notifyReadable(true)
 					connections[newConn.getID().ToStr()] = Connection(newConn, CreateObject("roByteArray"))
 
-					sendbuffer = CreateObject("roByteArray")
-					sendbuffer[512] = 0
 					versionPacket = new protocol.FCastMessage(protocol.Opcode.version, protocol.v2.VersionMessage())
-					versionPacket.toBytes(sendbuffer, 512)
-					sl = sendbuffer.Slice(5)
-					print `Sending version: ${sl.ToAsciiString()}`
 
-					newConn.send(sendbuffer, 0, versionPacket.byteLength())
+					sendOne(newconn, versionPacket)
 				end if
 			else if connections.DoesExist(socketIdStr)
 				' Activity on an open connection
@@ -118,4 +113,17 @@ sub listenToTcp()
 			#end if
 		end if
 	end while
+end sub
+
+' send to a single socket (such as when replying). Creates a new buffer
+sub sendOne(socket as roStreamSocket, message as protocol.FCastMessage)
+	sendbuffer = CreateObject("roByteArray")
+	sendbuffer[message.byteLength()+1] = 0
+
+	message.toBytes(sendbuffer, message.byteLength())
+	#if debug
+		print `Sending packet (${message.opcode}): ${sendbuffer.Slice(protocol.headerLength).ToAsciiString()}`
+	#end if
+
+	socket.send(sendbuffer, 0, message.byteLength())
 end sub
