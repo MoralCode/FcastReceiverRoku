@@ -88,13 +88,24 @@ sub listenToTcp()
 							print `received packet: ${tempBuf.Slice(5, receivedByteCount).ToAsciiString()}`
 							print `full nonnull buffer contents: ${tempBuf.Slice(5).ToAsciiString()}`
 						#end if 
-						tempBuf.resize(receivedByteCount)
-						state.buffer.append(tempBuf)
+						' tempBuf.resize(receivedByteCount)
+						' actualData = tempBuf.Slice(0, receivedByteCount)
+						state.buffer.append(tempBuf.Slice(0, receivedByteCount))
+						
+						' IMPORTANT: Loop to decode ALL packets currently in the buffer
+						while state.buffer.count() > 0
 
-						fcastPacket = protocol.DecodeBytes(state.buffer.Slice(0, receivedByteCount))
-						if fcastPacket <> invalid then
-							m.top.payload = fcastPacket
-						end if
+							fcastPacket = protocol.DecodeBytes(state.buffer.Slice(0, receivedByteCount))
+							if fcastPacket <> invalid then
+								m.top.payload = fcastPacket
+								
+								consumed = fcastPacket.byteLength()
+								state.buffer = state.buffer.Slice(consumed, state.buffer.count() - consumed)
+							else
+								' Incomplete packet, wait for more data
+								exit while
+							end if
+						end while
 					else if receivedByteCount = 0 ' client closed
 						closed = True
 					end if
