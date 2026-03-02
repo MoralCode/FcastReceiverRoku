@@ -1,5 +1,7 @@
 sub init()
     m.video = m.top.FindNode("video")
+    m.video.seekMode = "accurate"
+
     m.loadingGroup = m.top.FindNode("loadingGroup")
     m.transportControls = m.top.FindNode("transportControls")
     m.progressBar = m.top.FindNode("progressBar")
