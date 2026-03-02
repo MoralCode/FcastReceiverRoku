@@ -1,6 +1,6 @@
 
 ' https://developer.roku.com/en-ca/docs/references/scenegraph/media-playback-nodes/video.md#playback-fields
-enum VideoControls
+enum VideoControl
 	none = "none" ' No play state set
 	play = "play" ' Start video play
 	stop = "stop" ' stop video play

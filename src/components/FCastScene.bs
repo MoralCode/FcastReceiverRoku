@@ -62,15 +62,15 @@ sub onPayloadReceived()
 				time: payload.time
 			})
 			m.player.visible = true
-			m.player.control = VideoControls.play
+			m.player.control = VideoControl.play
 
 			m.player.setFocus(true)
 		else if opcode = protocol.Opcode.pause
-			m.player.control = VideoControls.pause
+			m.player.control = VideoControl.pause
 		else if opcode = protocol.Opcode.resume
-			m.player.control = VideoControls.resume
+			m.player.control = VideoControl.resume
 		else if opcode = protocol.Opcode.stop
-			m.player.control = VideoControls.stop
+			m.player.control = VideoControl.stop
 		end if
 	end if
 end sub
@@ -99,7 +99,7 @@ function onKeyEvent(key as string, press as boolean) as boolean
 	if press
 	    if key = "back"
 	        if videoPlayer.visible = true then
-	            videoPlayer.control = "stop"
+	            videoPlayer.control = VideoControl.stop
 	            videoPlayer.visible = false
 				m.homeUi.visible = true
 	            m.top.setFocus(true)
