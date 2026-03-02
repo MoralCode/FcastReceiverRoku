@@ -55,9 +55,9 @@ namespace protocol
 			if payloadData <> invalid then
 				packetLength = packetLength + Len(payloadData)
 				for x = 0 to packetLength - 1 - 1
-					buffer[5 + x] = payloadBuffer[x]
+					buffer[headerLength + x] = payloadBuffer[x]
 				end for
-				buffer[5 + packetLength - 1] = 0
+				buffer[headerLength + packetLength - 1] = 0
 			end if
 			buffer[0] = (packetLength and &HFF)
 			buffer[1] = (packetLength >> 8) and &HFF
@@ -71,7 +71,7 @@ namespace protocol
 		end sub
 
 		sub byteLength() as integer
-			return 5 + Len(FormatJson(CleanPayload(m.payload)))
+			return headerLength + Len(FormatJson(CleanPayload(m.payload)))
 		end sub
 	end class
 
