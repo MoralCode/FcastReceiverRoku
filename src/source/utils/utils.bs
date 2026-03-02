@@ -11,6 +11,18 @@ enum VideoControl
 	skipcontent = "skipcontent" ' Skip the currently - playing content and begin playing the next content in the playlist.if the content is not a playlist, or if the current content is the end of the playlist, this will end playback.
 end enum
 
+enum VideoState
+	none = "none" ' No current play state
+	buffering = "buffering" ' Video stream is currently buffering
+	playing = "playing" ' Video is currently playing
+	paused = "paused" ' Video is currently paused
+	stopping = "stopping" 'Video is in the process of being stopped. This value is only returned if the asyncStopSemantics field is enabled.
+	stopped = "stopped" ' Video is currently stopped
+	finished = "finished" ' Video has successfully completed playback
+	error = "error" ' An error has occurred in the video play.The error code, message, and diagnostics can be found in the errorCode, errorMsg, and errorStr fields respectively.
+end enum
+
+
 enum RemoteButton
 	up = "up"
 	down = "down"
