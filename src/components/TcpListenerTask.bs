@@ -127,3 +127,17 @@ sub sendOne(socket as roStreamSocket, message as protocol.FCastMessage)
 
 	socket.send(sendbuffer, 0, message.byteLength())
 end sub
+
+' Function to send the same message to all current connections. Creates a new buffer and reuses it for each message
+sub sendAll(connections as object, message as protocol.FCastMessage)
+	sendbuffer = CreateObject("roByteArray")
+	sendbuffer[message.byteLength() + 1] = 0
+
+	message.toBytes(sendbuffer, message.byteLength())
+	
+	for each key in connections
+		thisConnection = connections[key]
+		thisConnection.socket.send(sendbuffer, 0, message.byteLength())
+	end for
+
+end sub
