@@ -41,14 +41,15 @@ end sub
 
 sub OnVideoStateChanged(event as Object)
     state = event.GetData()
-    if state = "buffering"
+    if state = VideoState.buffering
         ShowLoadingFacade(true)
     else
         ShowLoadingFacade(false)
     end if
 
-    if state = "paused"
-        m.transportControlsTimer.control = "stop"
+    if state = VideoState.paused
+        ' disable the timer from timing out the video controls when paused
+        m.transportControlsTimer.control = VideoControl.stop
         SetStateIcon("pkg:/images/player/play.png")
     else
         SetStateIcon("pkg:/images/player/pause.png")
