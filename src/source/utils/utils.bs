@@ -1,4 +1,16 @@
 
+' https://developer.roku.com/en-ca/docs/references/scenegraph/media-playback-nodes/video.md#playback-fields
+enum VideoControls
+	none = "none" ' No play state set
+	play = "play" ' Start video play
+	stop = "stop" ' stop video play
+	pause = "pause" ' Pause video play
+	resume = "resume" ' Resume video play after a pause
+	replay = "replay" ' Replay video
+	prebuffer = "prebuffer" ' Starts buffering the video stream before the Video node actually begins playback. Only one video stream can be buffering in the application at any time.Setting the control field to prebuffer for another video stream after setting prebuffer for a previous video stream stops the buffering of the previous video stream.
+	skipcontent = "skipcontent" ' Skip the currently - playing content and begin playing the next content in the playlist.if the content is not a playlist, or if the current content is the end of the playlist, this will end playback.
+end enum
+
 namespace utils
 	function ByteArrayToHex(bytes as object) as string
 		hexString = ""
