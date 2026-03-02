@@ -49,7 +49,6 @@ namespace utils
 	end function
 end namespace
 
-
 function GetDurationStringStandard(totalSeconds = 0 as integer, pad = True as boolean, showEmptyHours = false as boolean) as string
 	remaining = totalSeconds
 	hours = Int(remaining / 3600).ToStr()

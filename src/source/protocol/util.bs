@@ -47,7 +47,6 @@ namespace protocol
 				payloadData = FormatJson(payloadDataArray)
 				' end if
 				payloadBuffer.FromAsciiString(payloadData)
-
 			end if
 
 			packetLength = 1 ' default, for just the opcode
