@@ -16,6 +16,7 @@ sub init()
     m.transportControlsTimer = m.top.findNode("transportControlsTimer")
     m.transportControlsTimer.ObserveFieldScoped("fire", "HideTransportControls")
     m.top.ObserveFieldScoped("focusedChild", "OnFocusChange")
+    m.top.observeField("control", "onExternalControl")
     SetupVideoObservers()
 
     m.fullTimeString = "0"
@@ -54,6 +55,16 @@ sub OnVideoStateChanged(event as Object)
     else
         SetStateIcon("pkg:/images/player/pause.png")
     end if
+end sub
+
+sub onExternalControl(event as object)
+    controlInput = event.GetData()
+    #if logging
+        print "incoming Player external Control event ";controlInput
+    #end if
+    ' if controlInput = VideoControl.pause
+       m.video.control = controlInput
+    ' end if
 end sub
 
 sub OnDurationChanged(event as Object)
