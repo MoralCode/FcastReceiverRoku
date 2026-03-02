@@ -4,6 +4,16 @@ sub init()
 	m.top.functionName = "listenToTcp"
 end sub
 
+class Connection
+	socket as roStreamSocket
+	buffer as roByteArray
+
+	sub new(socket as roStreamSocket, buffer as roByteArray)
+		m.socket = socket
+		m.buffer = buffer
+	end sub
+end class
+
 sub listenToTcp()
 	' Create the TCP socket
 	tcp = CreateObject("roStreamSocket")
@@ -12,11 +22,8 @@ sub listenToTcp()
 		return
 	end if
 
-	connections = {}
-
-	bufferSize = 2048
-	buffer = CreateObject("roByteArray")
-	buffer[bufferSize] = 0
+	' Map of ID -> { socket: roStreamSocket, buffer: roByteArray }
+	connections = {} 
 
 	' Create a message port to receive socket events
 	port = CreateObject("roMessagePort")
@@ -49,6 +56,7 @@ sub listenToTcp()
 
 		if type(msg) = "roSocketEvent"
 			socketID = msg.GetSocketID()
+			socketIdStr = socketID.ToStr()
 
 			' If the event is on our main listener, accept the connection
 			if socketID = tcp.getID() and tcp.isReadable()
@@ -59,7 +67,7 @@ sub listenToTcp()
 					#end if
 					newConn.setMessagePort(port)
 					newConn.notifyReadable(true)
-					connections[Stri(newConn.getID())] = newConn
+					connections[newConn.getID().ToStr()] = Connection(newConn, CreateObject("roByteArray"))
 
 					sendbuffer = CreateObject("roByteArray")
 					sendbuffer[512] = 0
@@ -70,32 +78,38 @@ sub listenToTcp()
 
 					newConn.send(sendbuffer, 0, versionPacket.byteLength())
 				end if
-			else
+			else if connections.DoesExist(socketIdStr)
 				' Activity on an open connection
-				connection = connections[Stri(socketID)]
+				state = connections[socketIdStr]
+				conn = state.socket
+
 				closed = False
-				if connection.isReadable()
-					receivedByteCount = connection.receive(buffer, 0, bufferSize)
+				if conn.isReadable()
+					tempBuf = CreateObject("roByteArray")
+					tempBuf[2048] = 0 ' Pre-allocate
+					receivedByteCount = conn.receive(tempBuf, 0, 2048)
 					if receivedByteCount > 0
 						#if debug
-							print `received packet: ${buffer.Slice(5, receivedByteCount).ToAsciiString()}`
-							print `full nonnull buffer contents: ${buffer.Slice(5).ToAsciiString()}`
+							print `received packet: ${tempBuf.Slice(5, receivedByteCount).ToAsciiString()}`
+							print `full nonnull buffer contents: ${tempBuf.Slice(5).ToAsciiString()}`
 						#end if 
-						fcastPacket = protocol.DecodeBytes(buffer.Slice(0, receivedByteCount))
+						tempBuf.resize(receivedByteCount)
+						state.buffer.append(tempBuf)
+
+						fcastPacket = protocol.DecodeBytes(state.buffer.Slice(0, receivedByteCount))
 						if fcastPacket <> invalid then
 							m.top.payload = fcastPacket
-
 						end if
 					else if receivedByteCount = 0 ' client closed
 						closed = True
 					end if
 				end if
-				if closed or not connection.eOK()
+				if closed or not conn.eOK()
 					#if logging
 						print `closing connection ${socketID}`
 					#end if
-					connection.close()
-					connections.delete(Stri(socketID))
+					conn.close()
+					connections.delete(socketIdStr)
 				end if
 			end if
 		else 
