@@ -1,3 +1,8 @@
+namespace icons
+    const PLAY = "pkg:/images/player/play.png"
+    const PAUSE = "pkg:/images/player/pause.png"
+end namespace
+
 sub init()
     m.video = m.top.FindNode("video")
     m.video.seekMode = "accurate"
@@ -53,9 +58,9 @@ sub OnVideoStateChanged(event as Object)
     if state = VideoState.paused
         ' disable the timer from timing out the video controls when paused
         m.transportControlsTimer.control = VideoControl.stop
-        SetStateIcon("pkg:/images/player/play.png")
+        SetStateIcon(icons.PLAY)
     else
-        SetStateIcon("pkg:/images/player/pause.png")
+        SetStateIcon(icons.PAUSE)
     end if
 end sub
 
