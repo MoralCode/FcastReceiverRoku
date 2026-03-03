@@ -84,13 +84,15 @@ sub listenToTcp()
 					tempBuf[2048] = 0 ' Pre-allocate
 					receivedByteCount = conn.receive(tempBuf, 0, 2048)
 					if receivedByteCount > 0
-						#if debug
-							print `received packet: ${tempBuf.Slice(5, receivedByteCount).ToAsciiString()}`
-							print `full nonnull buffer contents: ${tempBuf.Slice(5).ToAsciiString()}`
-						#end if 
+						
 						' tempBuf.resize(receivedByteCount)
 						' actualData = tempBuf.Slice(0, receivedByteCount)
 						state.buffer.append(tempBuf.Slice(0, receivedByteCount))
+
+						#if debug
+							print `received packet: ${tempBuf.Slice(5, receivedByteCount).ToAsciiString()}`
+							print `full nonnull buffer contents: ${state.buffer.Slice(5).ToAsciiString()}`
+						#end if
 						
 						' IMPORTANT: Loop to decode ALL packets currently in the buffer
 						while state.buffer.count() > 0
