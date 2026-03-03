@@ -1,6 +1,13 @@
 import "pkg:/source/protocol/v1.bs"
 
 namespace protocol.v2
+	
+	enum PlaybackState
+		idle
+		playing
+		paused
+	end enum
+
 	class PlayMessage extends protocol.v1.PlayMessage
 		container as string 'The MIME type (video/mp4)
 		optional url as string 'The URL to load (optional)
@@ -24,7 +31,7 @@ namespace protocol.v2
 		duration as integer 'The duration in seconds
 		optional speed as float ' The playback speed factor
 		
-		sub new(time as integer, state as protocol.v1.PlaybackState, generationTime as integer, duration as integer, speed as float)
+		sub new(time as integer, state as protocol.v2.PlaybackState, generationTime as integer, duration as integer, speed as float)
 			super(time, state)
 			m.generationTime = generationTime
 			m.duration = duration
