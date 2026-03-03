@@ -159,7 +159,9 @@ sub sendAll(connections as object, message as protocol.FCastMessage)
 	
 	for each key in connections
 		thisConnection = connections[key]
-		thisConnection.socket.send(sendbuffer, 0, message.byteLength())
+		if thisConnection <> invalid and thisConnection.socket <> invalid
+			thisConnection.socket.send(sendbuffer, 0, message.byteLength())
+		end if
 	end for
 
 end sub
