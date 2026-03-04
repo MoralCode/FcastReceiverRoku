@@ -152,10 +152,18 @@ end sub
 
 ' Function to send the same message to all current connections. Creates a new buffer and reuses it for each message
 sub sendAll(connections as object, message as protocol.FCastMessage)
+	if message = invalid or connections = invalid then
+		return
+	end if
+
 	sendbuffer = CreateObject("roByteArray")
 	sendbuffer[message.byteLength() + 1] = 0
 
 	message.toBytes(sendbuffer, message.byteLength())
+
+	#if debug
+		print `Sending packet to all (${message.opcode}): ${sendbuffer.Slice(protocol.headerLength).ToAsciiString()}`
+	#end if
 	
 	for each key in connections
 		thisConnection = connections[key]
