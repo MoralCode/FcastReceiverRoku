@@ -6,6 +6,7 @@
         <field id="content" type="node" alias="video.content" />
         <field id="contentIsPlaylist" type="bool" alias="video.contentIsPlaylist" />
         <field id="control" type="string" alias="video.control" />
+        <field id="seek" type="Float" alias="video.seek" />
     </interface>
 
     <script type="text/brightscript" uri="Player.bs"/>

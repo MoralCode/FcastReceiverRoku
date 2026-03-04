@@ -60,6 +60,7 @@ sub onPayloadReceived()
 				mime: payload.container,
 				time: payload.time
 			})
+			m.player.seek = payload.starttime
 			m.player.visible = true
 			m.player.control = VideoControl.play
 
@@ -70,6 +71,8 @@ sub onPayloadReceived()
 			m.player.control = VideoControl.resume
 		else if opcode = protocol.Opcode.stop
 			m.player.control = VideoControl.stop
+		else if opcode = protocol.Opcode.seek
+			m.player.seek = payload.time
 		end if
 	end if
 end sub
