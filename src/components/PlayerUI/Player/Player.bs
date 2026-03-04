@@ -57,7 +57,7 @@ sub OnVideoStateChanged(event as Object)
 
     if state = VideoState.paused
         ' disable the timer from timing out the video controls when paused
-        m.transportControlsTimer.control = VideoControl.stop
+        m.transportControlsTimer.control = "stop"
         SetStateIcon(icons.PLAY)
     else
         SetStateIcon(icons.PAUSE)
