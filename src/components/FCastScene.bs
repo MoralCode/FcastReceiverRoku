@@ -29,14 +29,13 @@ sub init()
 	m.tcpTask.port = 46899
 
 	' 4. Observe fields if you want the Task to send data back to the UI
-	' m.tcpTask.observeField("receivedMessage", "onMessageReceived")
+	m.tcpTask.observeField("payload", "onPayloadReceived")
 
 	' 5. Start the thread
 	m.tcpTask.control = "RUN"
 	#if logging
 	print "TCP Task Thread Started..."
 	#end if
-	m.tcpTask.observeField("payload", "onPayloadReceived")
 
 	m.top.setFocus(true)
 end sub
@@ -81,13 +80,13 @@ sub showspinner()
 	end if
 end sub
 
-sub onVisibleChange()
-	if m.top.visible = true
-		m.tcpTask.control = "RUN"
-	else
-		m.tcpTask.control = "STOP"
-	end if
-end sub
+' sub onVisibleChange()
+' 	if m.top.visible = true
+' 		m.tcpTask.control = "RUN"
+' 	else
+' 		m.tcpTask.control = "STOP"
+' 	end if
+' end sub
 
 function onKeyEvent(key as string, press as boolean) as boolean
 	#if logging
