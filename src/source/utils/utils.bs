@@ -48,16 +48,18 @@ namespace utils
 		return hexString
 	end function
 
-	function getUnixTimestampMs() as object
-		date = CreateObject("roDateTime")
+	function getUnixTimestampMs(date as object) as object
 		' We multiply by 1000& (LongInteger) to ensure the
 		' result doesn't overflow a standard 32-bit Integer.
-		secondsInMs = date.asSeconds() * 1000&
-		totalMs = secondsInMs + date.getMilliseconds()
+		' secondsInMs = date.asSeconds() * 1000&
+		' totalMs = secondsInMs + date.getMilliseconds()
+		' Mark() updates the existing object to the current "now"
+		' without creating a new one in memory.
+		date.mark()
 
-		return totalMs
+		return (date.asSeconds() * 1000&) + date.getMilliseconds()
 	end function
-	
+
 end namespace
 
 function GetDurationStringStandard(totalSeconds = 0 as integer, pad = True as boolean, showEmptyHours = false as boolean) as string
