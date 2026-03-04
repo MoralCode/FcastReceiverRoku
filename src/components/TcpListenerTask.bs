@@ -1,7 +1,10 @@
 import "pkg:/source/protocol/util.bs"
 import "pkg:/source/protocol/v2.bs"
+import "pkg:/source/utils/utils.bs"
+
 sub init()
 	m.top.functionName = "listenToTcp"
+	m.dateTracker = CreateObject("roDateTime")
 end sub
 
 class Connection
@@ -127,10 +130,26 @@ sub listenToTcp()
 			end if
 		else if msgType = "roSGNodeEvent"
 			if msg.getField() = "sendPacket"
-				packet = msg.getData() as FCastMessage
-				if packet <> invalid
-					' Call sendAll with your LOCAL connections map
-					sendAll(connections, packet)
+				packetInfo = msg.getData()
+				if packetInfo <> invalid
+					
+					opcode = packetInfo.opcode
+					state = packetInfo.state as protocol.v2.PlaybackState
+					if opcode = protocol.Opcode.playbackUpdate then
+						packet = protocol.FCastMessage(
+							protocol.Opcode.playbackUpdate,
+							protocol.v2.PlaybackUpdateMessage(
+								packetInfo.position,
+								state,
+								utils.getUnixTimestampMs(m.dateTracker),
+								packetInfo.duration,
+								packetInfo.speed
+							)
+						)
+						print "Sending update packet"
+						' Call sendAll with your LOCAL connections map
+						sendAll(connections, packet)	
+					end if
 				end if
 			end if
 		end if

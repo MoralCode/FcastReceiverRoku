@@ -24,6 +24,7 @@ sub init()
 
 	' 2. Create the Task node
 	m.tcpTask = CreateObject("roSGNode", "TcpListenerTask")
+	m.global.addFields({ tcpTask: m.tcpTask })
 
 	' 3. Set the port (optional, as it has a default in the XML)
 	m.tcpTask.port = 46899
