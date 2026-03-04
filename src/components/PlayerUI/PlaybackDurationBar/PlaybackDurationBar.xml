@@ -16,7 +16,6 @@
         <field id="progressPosition" type="int" onChange="UpdateProgress" />    
         <!-- for scrubber visualization --> 
         <field id="needScrubber" type="boolean" value="false" alias="scrubber.visible" />     
-        <field id="adPods" type="array"  onChange="UpdateAdRange"  alwaysNotify="true" />     
     </interface> 
 
     <script type="text/brightscript" uri= "PlaybackDurationBar.bs" />
@@ -37,11 +36,6 @@
             color="0xFF00001f"
             width="0"
             height="10"
-        />
-        <Group
-            id="ad"
-            visible="true"
-            translation="[0,0]"
         />
         <LayoutGroup
             id="scrubber"
