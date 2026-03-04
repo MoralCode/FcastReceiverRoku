@@ -62,7 +62,30 @@ sub OnVideoStateChanged(event as Object)
         SetStateIcon(icons.PAUSE)
     end if
 
+    if state = VideoState.error
+    #if logging
+        print `in Player OnVideoStateChanged ERROR`
+        printVideoError()
+    #end if
+    end if
+
+
 end sub
+
+sub printVideoError() 
+    code_map = {
+        "0":  "no error"
+        "-1":  "network error (server down or unresponsive, server is unreachable, network setup problem on the client)."
+        "-2":  "connection timed out"
+        "-3":  "unknown / unspecified or generic Error"
+        "-4":  "empty list; no streams were specified to play"
+        "-5":  "media error; the media format is unknown or unsupported"
+        "-6":  "DRM error"
+    }
+
+    print `Video Error. Code ${m.video.errorCode} - ${code_map[m.video.errorCode.ToStr()]}, Message ${m.video.errorMsg}, Str ${m.video.errorStr}, Info: ${m.video.errorInfo}`
+end sub
+
 
 sub OnDurationChanged(event as Object)
     m.progressBar.length = event.GetData()
