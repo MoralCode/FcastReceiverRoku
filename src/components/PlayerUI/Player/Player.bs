@@ -1,3 +1,6 @@
+import "pkg:/source/protocol/util.bs"
+import "pkg:/source/protocol/v2.bs"
+
 namespace icons
     const PLAY = "pkg:/images/player/play.png"
     const PAUSE = "pkg:/images/player/pause.png"
@@ -69,10 +72,10 @@ sub OnVideoStateChanged(event as Object)
     #end if
     end if
 
-
+    sendFCastPlaybackUpdate()
 end sub
 
-sub printVideoError() 
+sub printVideoError()
     code_map = {
         "0":  "no error"
         "-1":  "network error (server down or unresponsive, server is unreachable, network setup problem on the client)."
@@ -86,6 +89,36 @@ sub printVideoError()
     print `Video Error. Code ${m.video.errorCode} - ${code_map[m.video.errorCode.ToStr()]}, Message ${m.video.errorMsg}, Str ${m.video.errorStr}, Info: ${m.video.errorInfo}`
 end sub
 
+sub sendFCastPlaybackUpdate()
+    currentIcon = m.stateIcon.uri
+
+    currentState = invalid
+    if currentIcon = icons.PLAY then
+        currentState = protocol.v2.PlaybackState.paused
+    else if currentIcon = icons.PAUSE then
+        currentState = protocol.v2.PlaybackState.playing
+    end if
+
+    position = int(m.progressBar.progressPosition)
+    duration = m.progressBar.length
+    speed = 1.0
+
+    print `Sending Fcast Update: ${position}/${duration} ${currentState}`
+    tcpTask = m.global.tcpTask
+    if tcpTask <> invalid
+        ' OMG this is such a hack because we need to bring all these separate state events into one place at the same time.
+        'TODO make this a defined object type when fields get the ability to do types in brigherscript
+        tcpTask.sendPacket = {
+            opcode: protocol.Opcode.playbackUpdate,
+            position: position,
+            state: currentState,
+            duration: duration,
+            speed: speed
+        }
+    else
+        print "invalid"
+    end if
+end sub
 
 sub OnDurationChanged(event as Object)
     m.progressBar.length = event.GetData()
@@ -98,6 +131,7 @@ sub OnPositionChanged(event as Object)
     if m.direction = invalid
         m.progressBar.progressPosition = event.GetData()
         UpdateTimeLabel()
+        sendFCastPlaybackUpdate()
     end if
 end sub
 

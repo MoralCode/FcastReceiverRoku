@@ -27,11 +27,11 @@ namespace protocol.v2
 	end class
 
 	class PlaybackUpdateMessage extends protocol.v1.PlaybackUpdateMessage
-		generationTime as integer 'The time the packet was generated (unix time milliseconds)
+		generationTime as longinteger 'The time the packet was generated (unix time milliseconds, which exceeds the size of an integer)
 		duration as integer 'The duration in seconds
 		optional speed as float ' The playback speed factor
 		
-		sub new(time as integer, state as protocol.v2.PlaybackState, generationTime as integer, duration as integer, speed as float)
+		sub new(time as integer, state as protocol.v2.PlaybackState, generationTime as longinteger, duration as integer, speed as float)
 			super(time, state)
 			m.generationTime = generationTime
 			m.duration = duration
