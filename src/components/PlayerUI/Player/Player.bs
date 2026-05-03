@@ -101,8 +101,8 @@ sub sendFCastPlaybackUpdate()
 
     position = int(m.progressBar.progressPosition)
     duration = m.progressBar.length
-    speed = 1.0
-
+    ' undocumented property of video nodes on some platforms.
+    speed = m.video.playbackSpeed ?? 1.0
     print `Sending Fcast Update: ${position}/${duration} ${currentState}`
     tcpTask = m.global.tcpTask
     if tcpTask <> invalid
