@@ -138,6 +138,15 @@ sub mapMimeType(mime as string) as string
 
 		"audio/mpeg": "mp3"
 
+		' Claude suggestions for mimetype mappings
+		"video/webm": "mkv" ' Roku plays WebM via its mkv parser
+		"audio/webm": "mkv"
+		"application/vnd.apple.mpegurl": "hls" ' alternate HLS MIME used by some senders
+		"video/mp2t": "hls" ' MPEG-TS, often used with HLS
+		"audio/mp4": "mp4" ' audio-only mp4 streams
+		"audio/x-m4a": "mp4"
+		"audio/aac": "mp4" ' AAC in mp4 container
+
 		' these seem too likely to not be supported
 		' "image/mov": "mp4" '.mov  (mp4 will also accept .mov files)
 		' "image/x-quicktime": "mp4" '.mov  (mp4 will also accept .mov files)
