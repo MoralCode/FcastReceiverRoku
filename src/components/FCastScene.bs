@@ -115,7 +115,7 @@ end function
 
 
 ' Maps the mimetype from standard MIME strings to the strings roku expects
-sub mapMimeType(mime as string) as string
+function mapMimeType(mime as string) as string
 	normalizedMime = LCase(mime)
 	' see StreamFormat section of https://developer.roku.com/en-ca/docs/developer-program/getting-started/architecture/content-metadata.md#example-of-configuring-a-dash-stream-with-widevine-drm
 
@@ -159,7 +159,7 @@ sub mapMimeType(mime as string) as string
 		print "WARNING: mapMimeType - unmapped MIME type: " + mime
 		return invalid
 	end if
-end sub
+end function
 
 
 ' Create a content node suitable for passing into a video element
