@@ -147,7 +147,8 @@ sub mapMimeType(mime as string) as string
 	if convertedType <> invalid then
 		return convertedType
 	else
-		return ""
+		print "WARNING: mapMimeType - unmapped MIME type: " + mime
+		return invalid
 	end if
 end sub
 
