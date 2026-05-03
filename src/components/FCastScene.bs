@@ -116,6 +116,7 @@ end function
 
 ' Maps the mimetype from standard MIME strings to the strings roku expects
 sub mapMimeType(mime as string) as string
+	normalizedMime = LCase(mime)
 	' see StreamFormat section of https://developer.roku.com/en-ca/docs/developer-program/getting-started/architecture/content-metadata.md#example-of-configuring-a-dash-stream-with-widevine-drm
 
 	' application/octet-stream can be for .mov, .mkv, .hls
@@ -125,7 +126,7 @@ sub mapMimeType(mime as string) as string
 		"video/quicktime": "mp4" '.mov  (mp4 will also accept .mov files)
 		"video/x-quicktime": "mp4" '.mov  (mp4 will also accept .mov files)
 
-		"application/x-mpegURL": "hls"
+		"application/x-mpegurl": "hls"
 
 		"application/dash+xml": "dash"
 
@@ -142,7 +143,7 @@ sub mapMimeType(mime as string) as string
 		' "image/x-quicktime": "mp4" '.mov  (mp4 will also accept .mov files)
 		' "video/matroska-3d": "mkv"
 	}
-	convertedType = mimeMap[mime]
+	convertedType = mimeMap[normalizedMime]
 	if convertedType <> invalid then
 		return convertedType
 	else
