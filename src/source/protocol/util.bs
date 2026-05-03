@@ -76,11 +76,22 @@ namespace protocol
 
 	function CleanPayload(incomingPayload as object) as object
 		payloadDataArray = {}
+
+
+		' BrightScript returns keys lowercased when looking them up/iterating
+		' because BrightScript associative arrays are case-insensitive for access but case-preserving for storage, this effectively lowercases all the keys
+		keymap = {
+			"generationtime": "generationTime"
+		}
 		' copy payload array from object without copying methods from that object
 		if incomingPayload <> invalid then
 			for each key in incomingPayload
 				if type(incomingPayload[key]) <> "roFunction" then
-					payloadDataArray[key] = incomingPayload[key]
+					if keyMap.doesExist(key) then
+						payloadDataArray[keyMap[key]] = incomingPayload[key]
+					else
+						payloadDataArray[key] = incomingPayload[key]
+					end if
 				end if
 			end for
 		end if
