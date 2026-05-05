@@ -25,9 +25,9 @@ To deploy to a roku device in dev mode manually:
 | ------- | --------- | --------- |
 | MP4 playback | :heavy_check_mark:  | printf + netcat with big buck bunny url from google |
 | DASH playback | :heavy_check_mark: | terminal sender, grayjay |
-| seek, pause, stop, resume | :x: | terminal sender/grayjay |
+| seek, pause, stop, resume | :heavy_check_mark: | terminal sender/grayjay |
 | set volume | :x: | terminal sender |
-| report playback progress | :x: | terminal sender/grayjay |
+| report playback progress | :heavy_check_mark: | terminal sender/grayjay |
 | V2: set speed | :x: | terminal sender/grayjay |
 | Image playlist | :x: | terminal sender |
 | video playlist | :x: | terminal sender |
