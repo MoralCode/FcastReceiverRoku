@@ -91,3 +91,33 @@ function PadLeft(value as string, padChar as string, totalLength as integer) as 
 	end while
 	return value
 end function
+
+
+' @description Creates an Fcast URL with Base64 encoded JSON data
+' @param name {string} The display name of the device
+' @param ip {string} The IP address of the device
+' @param port {integer} The primary port (Type 0).
+'                       Note: This function assumes Type 1 is port - 1 per your example.
+function CreateFcastUrl(name as string, ip as string, port as integer) as string
+	' 1. Construct the data structure
+	data = {
+		"name": name,
+		"addresses": [ip],
+		"services": [
+			{ "port": port, "type": 0 }',
+			'{ "port": port - 1, "type": 1 }
+		]
+	}
+
+	' 2. Convert the Associative Array to a JSON string
+	jsonString = FormatJson(data)
+
+	' 3. Encode the string to Base64
+	' We use roByteArray to handle the conversion
+	ba = CreateObject("roByteArray")
+	ba.FromAsciiString(jsonString)
+	base64Data = ba.ToBase64String()
+
+	' 4. Return the final formatted URL
+	return "fcast://r/" + base64Data
+end function
