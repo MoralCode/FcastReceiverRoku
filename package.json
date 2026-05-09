@@ -9,7 +9,7 @@
 		"clean": "rm -r out/ dist/"
 	},
 	"dependencies": {
-		"@moralcode/qrode-brightscript": "^0.1.0",
+		"@moralcode/qrcode-brightscript": "^0.1.0",
 		"brighterscript": "^0.70.3"
 	},
 	"devDependencies": {
