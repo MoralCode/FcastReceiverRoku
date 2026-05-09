@@ -2,15 +2,22 @@
 ## Install
 The methods of installing this channel are (from most to least stable)...
 
-<!-- through the store -->
-<!-- through the store with a code -->
-### Building and installing from source
-THis install method will require your roku device to be in developer mode.
+### Through the roku store
+This is not yet published to the roku store. Feel free to contribute if you want to see this!
 
-`npm install`
+### Through the store with a code
+This is not yet published to the roku store. Feel free to contribute if you want to see this!
 
-To just run a non-development build/generate the .zip to install via developer mode:
-`npm run build`
+### From Releases tab
+To sideload a Roku channel from zip, see ["upload your app to the roku"](https://www.howtogeek.com/290787/how-to-enable-developer-mode-and-sideload-roku-apps/#step-three-upload-your-app-to-the-roku). This requires your roku device to be in development mode, the top of [the same article](https://www.howtogeek.com/290787/how-to-enable-developer-mode-and-sideload-roku-apps/) walks through how to do this.
+
+### Building from source
+
+
+1. `npm install` to install dependencies
+2. `npx ropm install` To prepare/organize roku packages into the correct place
+3. `npm run build` to run the production build/generate the .zip
+
 
 <details>
 <summary>Super-manual stuff</summary>

@@ -50,9 +50,7 @@
 					horizAlign="center"
 					color="0xFFFFFFFF" />
 
-				<Rectangle id="QRBackground" width="200" height="200" translation="[125, 130]"
-					color="0xFFFFFFFF" />
-				<Poster id="QRCode" uri="pkg:/images/qr_placeholder.png" width="180" height="180"
+				<qrCode id="QRCode" width="180" height="180"
 					translation="[135, 140]" />
 
 				<Label
