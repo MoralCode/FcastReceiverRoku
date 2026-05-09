@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"displayName": "FCast Roku Channel (Unofficial)",
 	"scripts": {
+		"deps": "ropm install",
 		"build": "bsc",
 		"build:dev": "bsc --project bsconfig-dev.json",
 		"compile": "bsc --create-package false",
@@ -14,5 +15,11 @@
 	},
 	"devDependencies": {
 		"ropm": "^0.11.5"
+	},
+	"ropm": {
+		"rootDir": "src",
+		"noprefix": [
+			"qrcode"
+		]
 	}
 }
