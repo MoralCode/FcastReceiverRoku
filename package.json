@@ -1,5 +1,6 @@
 {
 	"name": "fcast-roku-channel",
+	"version": "0.1.0",
 	"displayName": "FCast Roku Channel (Unofficial)",
 	"scripts": {
 		"build": "bsc",
