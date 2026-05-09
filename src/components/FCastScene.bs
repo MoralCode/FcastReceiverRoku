@@ -59,7 +59,8 @@ sub onPayloadReceived()
 			m.player.content = buildContentNodeForVideo({
 				url: payload.url,
 				mime: payload.container,
-				time: payload.time
+				time: payload.time,
+				content: payload.content ' dash manfest content if present
 			})
 			m.player.visible = true
 			m.player.control = VideoControl.play
