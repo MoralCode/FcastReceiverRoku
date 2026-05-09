@@ -1,0 +1,36 @@
+name: Build and Release Roku Channel
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Channel Zip
+        run: npm run build
+        # This uses your 'bsc' script from package.json 
+        # which outputs to ./dist/FCast-Channel.zip per your bsconfig
+
+      - name: Upload Zip to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./dist/FCast-Channel.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
