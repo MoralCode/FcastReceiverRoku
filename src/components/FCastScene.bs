@@ -17,7 +17,9 @@ sub init()
 	ipData = util.GetFirstLocalIPAddress()
 	ipAddress.text = ipData.value
 	networkInterface.text = ipData.key
+	qrcode = m.top.findNode("QRCode")
 	tcpPortNumber = 46899
+	qrcode.text = CreateFcastUrl("FCast Roku Receiver", ipData.value, tcpPortNumber)
 
 
 	' 1. Find your UI elements if you need to update them later
