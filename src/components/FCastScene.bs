@@ -61,10 +61,8 @@ sub onPayloadReceived()
 				mime: payload.container,
 				time: payload.time
 			})
-			m.player.seek = payload.starttime
 			m.player.visible = true
 			m.player.control = VideoControl.play
-
 			m.player.setFocus(true)
 		else if opcode = protocol.Opcode.pause
 			m.player.control = VideoControl.pause
@@ -185,8 +183,9 @@ sub buildContentNodeForVideo(castContent as object) as object
 
 	videoContent.StreamFormat = mimetype
 
-	' if castContent.start <> invalid then
-	' 	videoContent.PlayStart=
-	' endif
+	' tell the content to start at a particular time due to race conditions with seeking and starting playback that could cause the seek to be ignored if the player isnt yet ready.
+	if castContent.time <> invalid then
+		videoContent.PlayStart = castContent.time
+	endif
 	return videoContent
 end sub
