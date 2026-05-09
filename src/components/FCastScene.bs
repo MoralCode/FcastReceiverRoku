@@ -17,6 +17,7 @@ sub init()
 	ipData = util.GetFirstLocalIPAddress()
 	ipAddress.text = ipData.value
 	networkInterface.text = ipData.key
+	tcpPortNumber = 46899
 
 
 	' 1. Find your UI elements if you need to update them later
@@ -27,7 +28,7 @@ sub init()
 	m.global.addFields({ tcpTask: m.tcpTask })
 
 	' 3. Set the port (optional, as it has a default in the XML)
-	m.tcpTask.port = 46899
+	m.tcpTask.port = tcpPortNumber
 
 	' 4. Observe fields if you want the Task to send data back to the UI
 	m.tcpTask.observeField("payload", "onPayloadReceived")
