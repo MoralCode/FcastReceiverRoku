@@ -104,8 +104,8 @@ function CreateFcastUrl(name as string, ip as string, port as integer) as string
 		"name": name,
 		"addresses": [ip],
 		"services": [
-			{ "port": port, "type": 0 }',
-			'{ "port": port - 1, "type": 1 }
+			{ "port": port, "type": 0 },
+			{ "port": port - 1, "type": 1 }
 		]
 	}
 
